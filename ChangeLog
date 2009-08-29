@@ -1,3 +1,7 @@
+2009-08-29 Luiz Armesto <luiz.armesto@gmail.com>
+
+    * classix{,.ui}: Added progressbar and stop button.
+
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
     * classix: Fixed case insensitive search (thanks to Luiz Fernando Armesto).

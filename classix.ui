@@ -9,8 +9,6 @@
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <!-- GtkVBox orientation property generates a warning in gtk 2.10 -->
-        <!-- <property name="orientation">vertical</property> -->
         <child>
           <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
@@ -66,16 +64,49 @@
             <property name="position">1</property>
           </packing>
         </child>
+        <child>
+          <object class="GtkHBox" id="hbox2">
+            <child>
+              <object class="GtkProgressBar" id="progressbar">
+                <property name="visible">True</property>
+                <property name="show_text">True</property>
+                <property name="text" translatable="yes">Finding...</property>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="stop_button">
+                <property name="label" translatable="yes">gtk-stop</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_stock">True</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="on_stop_button_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
       </object>
     </child>
   </object>
   <object class="GtkTreeViewColumn" id="search_tvcol_title">
-    <property name="title">Título</property>
+    <property name="title">T&#xED;tulo</property>
     <property name="expand">True</property>
   </object>
   <object class="GtkTreeViewColumn" id="search_tvcol_code">
     <property name="sizing">autosize</property>
-    <property name="title">Código</property>
+    <property name="title">C&#xF3;digo</property>
     <property name="expand">True</property>
   </object>
 </interface>

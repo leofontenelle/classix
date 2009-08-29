@@ -18,6 +18,7 @@
 
 
 import os
+import stat
 import gzip
 import gtk
 import threading
@@ -26,8 +27,8 @@ import gobject
 gtk.gdk.threads_init()
 
 
-
 class Node(object):
+
     def __init__(self, code, title, inclusion="", exclusion="", comments="", four_characters="", chapter_number="", block_start=""):
 
         # code without possible dagger, up to 6 characters
@@ -37,48 +38,49 @@ class Node(object):
         self.inclusion = inclusion
         self.exclusion = exclusion
         self.comments = comments
-        
+
         self.level = "" #FIXME
-        
+
         if "-" in self.code:
             self.place = "N" # non-terminal node (not valid for coding)
         else:
             self.place = "T" # terminal node (leaf node, valid for coding)
-        
+
         if self.place == "N":
             self.type = "V" # not valid for coding
         elif u"*" in self.code:
             self.type = "N" # valid as secondary, optional code
         else:
             self.type = "P" # valid as primary code
-        
+
         # X = explicitly listed in the classification (pre-combined)
         # S = derived from a subclassification (post-combined)
         self.four_characters = four_characters
-        
+
         self.chapter_number = chapter_number
         self.block_star = block_start
-        
+
         self.normalized_code = ""   # FIXME # without possible asterisk
         self.no_dot_code = ""       # FIXME # without dot
 
 
 
 class Classix:
+
     def __init__(self, ui_file_name):
         self.builder = gtk.Builder()
         self.builder.add_from_file(ui_file_name)
         self.search_liststore = gtk.ListStore(object)
-        
+
         tv = self.builder.get_object("search_treeview")
         tv.set_model(self.search_liststore)
-        
+
         code_col = self.builder.get_object("search_tvcol_code")
         code_cell = gtk.CellRendererText()
         code_col.pack_start(code_cell)
         code_col.set_cell_data_func(code_cell, self.get_value_from_liststore)
         tv.append_column(code_col)
-                
+
         title_col = self.builder.get_object("search_tvcol_title")
         title_cell = gtk.CellRendererText()
         title_col.pack_start(title_cell)
@@ -87,6 +89,20 @@ class Classix:
 
         self.builder.connect_signals(self)
         self.builder.get_object("main_window").show_all()
+
+        self.progress_container = self.builder.get_object("hbox2")
+        self.progress_container.hide()
+
+        self.progressbar = self.builder.get_object("progressbar")
+
+
+    def set_progress(self, fraction):
+        self.progressbar.set_fraction(fraction)
+
+        # Hide the progressbar if the fraction is set to zero
+        if fraction == 0.0:
+            self.progress_container.hide()
+        return False # so that glib.idle_add won't repeat this callback forever.
 
 
     def add_node_to_search(self, node):
@@ -113,26 +129,36 @@ class Classix:
             self.search_thread.stop()
         except AttributeError:
             pass
-        
+
         self.search_liststore.clear()
         entry = self.builder.get_object("search_entry")
         search_string = entry.get_text().lower()
         self.search_thread = GzipSearch(search_string)
         self.search_thread.start()
-    
-        
+
+        self.progress_container.show()
+
+
+    def on_stop_button_clicked(self, widget, data=None):
+        try:
+            self.search_thread.stop()
+        except AttributeError:
+            pass
+        self.set_progress(0.0)
+
 
 class GzipSearch(threading.Thread):
+
     def __init__(self, search_string):
         self.stop_thread = threading.Event()
-        self.search_string = search_string
+        self.search_string = search_string.lower()
         threading.Thread.__init__(self)
-    
-    
+
+
     def stop(self):
         self.stop_thread.set()
-    
-    
+
+
     def run(self):
         """Searches for the provided string in the compressed cid10n4a.txt,
         and adds the Node objects to the search liststore.
@@ -152,11 +178,16 @@ class GzipSearch(threading.Thread):
         a space.
         """
     
-        global db_file_name
-            
+        global db_file_name, classix
+        
         try:
             self.stop_thread.clear()
             self.db_file = gzip.open(db_file_name)
+
+            # Get the file size as a float
+            total = os.stat(db_file_name)[stat.ST_SIZE] * 1.0
+
+            fraction = 0.0
 
             for line in self.db_file:
                 if self.stop_thread.isSet():
@@ -167,22 +198,29 @@ class GzipSearch(threading.Thread):
                 inclusion, sep, exclusion = rest.partition("\ ")
                 inclusion = inclusion.replace("| ", "\n")
                 exclusion = exclusion.replace("| ", "\n")
-                
+
+                # Update the progressbar
+                new_fraction = round(self.db_file.fileobj.tell() / total, 2)
+                if new_fraction > fraction:
+                    fraction = new_fraction
+                    gobject.idle_add(classix.set_progress, fraction)
+
                 if self.search_string in code.lower() or \
                    self.search_string in title.lower() or \
                    self.search_string in inclusion.lower():
-                    
+
                     node = Node(code, title, inclusion, exclusion)
                     gobject.idle_add(classix.add_node_to_search, node)
         finally:
             self.db_file.close()
-        
-    
-    
+            gobject.idle_add(classix.set_progress, 0)
+
+
 
 if __name__ == "__main__":
     db_file_name = "classix.gz"
     ui_file_name = "classix.ui"
-    
+
     classix = Classix(ui_file_name=ui_file_name)
     gtk.main()
+    
