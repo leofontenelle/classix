@@ -1,3 +1,8 @@
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
+    * classix: Fixed case insensitive search (thanks to Luiz Fernando Armesto).
+      Closes issue #1.
+
+2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
     * classix{,.gz,.ui}, COPYING, README: Initial commit.

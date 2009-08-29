@@ -116,7 +116,7 @@ class Classix:
         
         self.search_liststore.clear()
         entry = self.builder.get_object("search_entry")
-        search_string = entry.get_text()
+        search_string = entry.get_text().lower()
         self.search_thread = GzipSearch(search_string)
         self.search_thread.start()
     
