@@ -59,9 +59,6 @@ def parse_cid10n4a_txt(line):
     inclusion = inclusion.replace("| ", "\n").rstrip("\r\n")
     exclusion = exclusion.replace("| ", "\n").rstrip("\r\n")
     
-    for atrib in ["code", "title", "inclusion", "exclusion"]:
-        print "%(name)s: '%(value)s'" % {"name": atrib, "value": eval(atrib)}
-    print
     node = Node(code, title, inclusion, exclusion)
     
     return node
