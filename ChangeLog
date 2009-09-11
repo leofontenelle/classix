@@ -1,5 +1,9 @@
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
+    * classix: Removed debugging code.
+
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
     * classix: Isolated the code that parses lines from the cid10n4a.txt file,
       for future reuse in an SQLite importer.
 
