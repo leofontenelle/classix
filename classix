@@ -27,6 +27,47 @@ import gobject
 gtk.gdk.threads_init()
 
 
+def parse_cid10n4a_txt(line):
+    """Accepts a line from cid10n4a.txt as argument, and returns the 
+    corresponding node object.
+    
+    
+    The following code tells more about the line syntax, but is 60% slower:
+    
+    # \u2020 = †
+    regex = re.compile(ur'^(?P<code>[A-Z][\d]{2}(\.[\d-])?[\u2020*]?)  '
+                   '(?P<title>[^|]*)\|  '
+                   '(?P<inclusion>(\| [^|]*)*)?'
+                   '(\\ (?P<exclusion>[^|]*(\| [^|]*)*))?')
+    m = regex.match(line.decode('utf8'))
+    code = m.group("code")
+    title = m.group("title")
+    inclusion = m.group("inclusion")
+    exclusion = m.group("exclusion")
+    if inclusion:
+        inclusion = inclusion.lstrip("| ").replace("| ", "\n").rstrip("\r\n")
+    if exclusion:
+        exclusion = exclusion.lstrip("| ").replace("| ", "\n").rstrip("\r\n")
+    node = Node(code, title, inclusion, exclusion)
+    return node
+    """
+    
+    code, sep, rest = line.partition("  ")
+    title, sep, rest = rest.partition("|")
+    rest = rest.lstrip("| ")
+    inclusion, sep, exclusion = rest.partition("\ ")
+    inclusion = inclusion.replace("| ", "\n").rstrip("\r\n")
+    exclusion = exclusion.replace("| ", "\n").rstrip("\r\n")
+    
+    for atrib in ["code", "title", "inclusion", "exclusion"]:
+        print "%(name)s: '%(value)s'" % {"name": atrib, "value": eval(atrib)}
+    print
+    node = Node(code, title, inclusion, exclusion)
+    
+    return node
+
+
+
 class Node(object):
 
     def __init__(self, code, title, inclusion="", exclusion="", comments="", four_characters="", chapter_number="", block_start=""):
@@ -41,6 +82,9 @@ class Node(object):
 
         self.level = "" #FIXME
 
+        """Codes ending with '-' are "not-terminal nodes", i.e. they have
+        children codes, and thus are invalid for coding."""
+        
         if "-" in self.code:
             self.place = "N" # non-terminal node (not valid for coding)
         else:
@@ -135,7 +179,7 @@ class Classix:
         search_string = entry.get_text().lower()
         self.search_thread = GzipSearch(search_string)
         self.search_thread.start()
-
+        
         self.progress_container.show()
 
 
@@ -145,6 +189,7 @@ class Classix:
         except AttributeError:
             pass
         self.set_progress(0.0)
+
 
 
 class GzipSearch(threading.Thread):
@@ -160,24 +205,6 @@ class GzipSearch(threading.Thread):
 
 
     def run(self):
-        """Searches for the provided string in the compressed cid10n4a.txt,
-        and adds the Node objects to the search liststore.
-        
-        Each line in the file can be described by this regular expression:
-        
-        ^[A-Z][[:digit:]]\{2\}\(\.[[:digit:]-]\)\?[†*]\?  [^|]*|  \(| [^|]*\)*\(\\ [^|]*\(| [^|]*\)*\)\?$
-            
-        The first part, before the two white spaces, is the code. Codes ending
-        with '-' are "not-terminal nodes", i.e. they have children codes
-        and thus are invalid for coding.
-        
-        Then we have the title, which ends with a vertical bar and two
-        spaces. If there is an inclusion note, each line begins with another
-        vertical bar and a space. The exclusion note begins with a backslash
-        and a space, and every subsequent line begins with a vertical bar and
-        a space.
-        """
-    
         global db_file_name, classix
         
         try:
@@ -192,24 +219,23 @@ class GzipSearch(threading.Thread):
             for line in self.db_file:
                 if self.stop_thread.isSet():
                     break
-                code, sep, rest = line.partition("  ")
-                title, sep, rest = rest.partition("|")
-                rest = rest.lstrip("| ")
-                inclusion, sep, exclusion = rest.partition("\ ")
-                inclusion = inclusion.replace("| ", "\n")
-                exclusion = exclusion.replace("| ", "\n")
-
+                
+                try:
+                    node = parse_cid10n4a_txt(line)
+                except AttributeError:
+                    print "Error parsing this line:\n%s" % line
+                    continue
+                
                 # Update the progressbar
                 new_fraction = round(self.db_file.fileobj.tell() / total, 2)
                 if new_fraction > fraction:
                     fraction = new_fraction
                     gobject.idle_add(classix.set_progress, fraction)
 
-                if self.search_string in code.lower() or \
-                   self.search_string in title.lower() or \
-                   self.search_string in inclusion.lower():
+                if self.search_string in node.code.lower() or \
+                   self.search_string in node.title.lower() or \
+                   self.search_string in node.inclusion.lower():
 
-                    node = Node(code, title, inclusion, exclusion)
                     gobject.idle_add(classix.add_node_to_search, node)
         finally:
             self.db_file.close()
