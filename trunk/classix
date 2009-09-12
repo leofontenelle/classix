@@ -17,12 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import os
-import stat
-import gzip
-import gtk
-import threading
+import codecs
 import gobject
+import gtk
+import gzip
+import os
+import sqlite3
+import stat
+import threading
 
 gtk.gdk.threads_init()
 
@@ -67,7 +69,8 @@ def parse_cid10n4a_txt(line):
 
 class Node(object):
 
-    def __init__(self, code, title, inclusion="", exclusion="", comments="", four_characters="", chapter_number="", block_start=""):
+    def __init__(self, code, title, inclusion="", exclusion="", comments="",
+                    four_characters="", chapter_number="", block_start=""):
 
         # code without possible dagger, up to 6 characters
         self.code = code
@@ -174,10 +177,10 @@ class Classix:
         self.search_liststore.clear()
         entry = self.builder.get_object("search_entry")
         search_string = entry.get_text().lower()
-        self.search_thread = GzipSearch(search_string)
+        self.search_thread = SqliteSearch(search_string)
         self.search_thread.start()
         
-        self.progress_container.show()
+#        self.progress_container.show()
 
 
     def on_stop_button_clicked(self, widget, data=None):
@@ -189,27 +192,32 @@ class Classix:
 
 
 
-class GzipSearch(threading.Thread):
+class SearchBackend(threading.Thread):
 
     def __init__(self, search_string):
         self.stop_thread = threading.Event()
         self.search_string = search_string.lower()
         threading.Thread.__init__(self)
 
-
     def stop(self):
         self.stop_thread.set()
+    
+    def run(self):
+        raise NotImplemented
 
+
+
+class GzipSearch(SearchBackend):
 
     def run(self):
-        global db_file_name, classix
+        global txt_gz_file_name, classix
         
         try:
             self.stop_thread.clear()
-            self.db_file = gzip.open(db_file_name)
+            self.db_file = gzip.open(txt_gz_file_name)
 
             # Get the file size as a float
-            total = os.stat(db_file_name)[stat.ST_SIZE] * 1.0
+            total = os.stat(txt_gz_file_name)[stat.ST_SIZE] * 1.0
 
             fraction = 0.0
 
@@ -240,8 +248,83 @@ class GzipSearch(threading.Thread):
 
 
 
+class SqliteSearch(SearchBackend):
+
+    def run(self):
+        global classix
+        
+        try:
+            self.stop_thread.clear()
+            conn = sqlite3.connect("classix.db")
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM codes;")
+
+#            row_count = os.stat(txt_gz_file_name)[stat.ST_SIZE] * 1.0
+#
+#            fraction = 0.0
+
+            for row in cursor:
+                if self.stop_thread.isSet():
+                    break
+                
+                node = Node(row[0], row[1], row[2], row[3])
+
+#                # Update the progressbar
+#                new_fraction = round(self.db_file.fileobj.tell() / total, 2)
+#                if new_fraction > fraction:
+#                    fraction = new_fraction
+#                    gobject.idle_add(classix.set_progress, fraction)
+
+                if self.search_string in node.code.lower() or \
+                   self.search_string in node.title.lower() or \
+                   self.search_string in node.inclusion.lower():
+
+                    gobject.idle_add(classix.add_node_to_search, node)
+        finally:
+            conn.close()
+#           gobject.idle_add(classix.set_progress, 0)
+
+
+
+class SqliteDatabaseCreator (object):
+    """Imports the cid10n4a.txt file or some derivative into a SQLite3 database.
+    """
+    
+    def __init__(self, input_file_name):
+        """Instantiates the importer; accepts file names and not files.
+        cid10n4a.txt here is the official file, encoded with Codepage 1252."""
+        
+        self.input = codecs.open(input_file_name, encoding="cp1252")
+    
+    
+    def run(self):
+    
+        try:
+            conn = sqlite3.connect("classix.db")
+            conn.execute("DROP TABLE codes;")
+            conn.execute("""CREATE TABLE codes (
+                code TEXT PRIMARY KEY COLLATE NOCASE,
+                title TEXT NOT NULL COLLATE NOCASE,
+                inclusion TEXT COLLATE NOCASE,
+                exclusion TEXT COLLATE NOCASE);""")
+            
+            for line in self.input:
+                # line is a Unicode object, not an UTF-8 string.
+                node = parse_cid10n4a_txt(line)
+                conn.execute("""INSERT INTO codes
+                    (code, title, inclusion, exclusion)
+                    VALUES
+                    (?, ?, ?, ?);""",
+                    (node.code, node.title, node.inclusion, node.exclusion))
+        finally:
+             self.input.close()
+             conn.commit()
+             conn.close()
+
+
+
 if __name__ == "__main__":
-    db_file_name = "classix.gz"
+    txt_gz_file_name = "classix.gz"
     ui_file_name = "classix.ui"
 
     classix = Classix(ui_file_name=ui_file_name)
