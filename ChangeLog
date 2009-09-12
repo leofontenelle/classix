@@ -1,5 +1,15 @@
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
+    * classix: Added SQLite search backend. It is already the default, with a
+    great performance improvement: 2.8 times quicker when running on an N800's
+    SD card. There is a regression, though: the progress bar is not displayed.
+    * classix.db: Added
+    * classix.gz: Removed. See README for instructions on how to get one.
+    * README: Updated with information on how to create a new database if 
+    necessary. Added information on why the name "Classix".
+
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
     * classix: Removed debugging code.
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>

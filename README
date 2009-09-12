@@ -5,6 +5,9 @@ externa (Capítulo XX), se necessário, para identificar a droga, se induzido po
 droga."). It doesn't search in exclusion notes, on purpose. Currently it only 
 supports the Brazilian Portuguese version of ICD-10.
 
+The name comes from "classification" (the "C" in ICD-10 stands for 
+"Classification") and from "X", the roman numeral for 10.
+
 
 
 Classix is copyright (C) 2009 Leonardo Ferreira Fontenelle <leonardof@gnome.org>
@@ -24,16 +27,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-classix.gz is copyright by World Health Organization and Centro Brasileiro de 
-Classificação de Doenças. It can be freely usedand redistributed provided that 
+The database is copyright by World Health Organization and Centro Brasileiro de 
+Classificação de Doenças. It can be freely used and redistributed provided that 
 authorship is recognized and there is no charge. This means you can sell 
 Classix but not with the database.
 
 classix.gz can be created by converting cid10n4a.txt from codepage 1252 to 
 UTF-8 and compressing with gzip:
 
-iconv cid10n4a.txt --from=cp1252  --to=utf-8 | gzip > classix.gz
+$ iconv cid10n4a.txt --from=cp1252  --to=utf-8 | gzip > classix.gz
 
-cid10n4a.txt can be be retrieved from the following URL:
+And cid10n4a.txt can be be retrieved from the following URL:
 
-http://gamba.epm.br/pub/pesqcid/cid10n4a.txt
+$ http://gamba.epm.br/pub/pesqcid/cid10n4a.txt
+
+The source code includes an importer to create classix.db from cid10n4a.txt
+
+
