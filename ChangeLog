@@ -1,5 +1,9 @@
 2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* Makefile.am, data/classix.desktop: Added desktop menu entry.
+
+2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* AUTHORS, NEWS: Added to make autogen happy.
 	* Makefile.am: Added support for automake, non-recursive.
 	* autogen.sh: Added as part of support to the GNU Build System.

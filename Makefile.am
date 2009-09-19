@@ -31,3 +31,8 @@ dist_pkgdata_DATA = \
     data/classix.gz \
     data/classix.db
 
+desktopdir = $(datadir)/applications
+desktop_DATA = data/classix.desktop
+
+CLEANFILES += $(desktop_DATA)
+
