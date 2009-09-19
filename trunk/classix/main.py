@@ -25,9 +25,9 @@ import os
 import sqlite3
 import stat
 import threading
+from . import config
 
 gtk.gdk.threads_init()
-
 
 def parse_cid10n4a_txt(line):
     """Accepts a line from cid10n4a.txt as argument, and returns the 
@@ -108,8 +108,7 @@ class Node(object):
         self.no_dot_code = ""       # FIXME # without dot
 
 
-
-class Classix:
+class MainWindow (object):
 
     def __init__(self, ui_file_name):
         self.builder = gtk.Builder()
@@ -177,7 +176,7 @@ class Classix:
         self.search_liststore.clear()
         entry = self.builder.get_object("search_entry")
         search_string = entry.get_text().lower()
-        self.search_thread = SqliteSearch(search_string)
+        self.search_thread = SqliteSearch(search_string, self)
         self.search_thread.start()
         
 #        self.progress_container.show()
@@ -194,9 +193,10 @@ class Classix:
 
 class SearchBackend(threading.Thread):
 
-    def __init__(self, search_string):
+    def __init__(self, search_string, frontend):
         self.stop_thread = threading.Event()
         self.search_string = search_string.lower()
+        self.frontend = frontend
         threading.Thread.__init__(self)
 
     def stop(self):
@@ -209,15 +209,19 @@ class SearchBackend(threading.Thread):
 
 class GzipSearch(SearchBackend):
 
+    def __init__(self, search_string, frontend):
+        self.database_filename = os.path.join(config.datadir, "classix.gz")
+        SearchBackend.__init__(self, search_string, frontend)
+    
+    
     def run(self):
-        global txt_gz_file_name, classix
         
         try:
             self.stop_thread.clear()
-            self.db_file = gzip.open(txt_gz_file_name)
+            self.db_file = gzip.open(self.database_filename)
 
             # Get the file size as a float
-            total = os.stat(txt_gz_file_name)[stat.ST_SIZE] * 1.0
+            total = os.stat(self.database_filename)[stat.ST_SIZE] * 1.0
 
             fraction = 0.0
 
@@ -235,31 +239,35 @@ class GzipSearch(SearchBackend):
                 new_fraction = round(self.db_file.fileobj.tell() / total, 2)
                 if new_fraction > fraction:
                     fraction = new_fraction
-                    gobject.idle_add(classix.set_progress, fraction)
+                    gobject.idle_add(self.frontend.set_progress, fraction)
 
                 if self.search_string in node.code.lower() or \
                    self.search_string in node.title.lower() or \
                    self.search_string in node.inclusion.lower():
 
-                    gobject.idle_add(classix.add_node_to_search, node)
+                    gobject.idle_add(self.frontend.add_node_to_search, node)
         finally:
             self.db_file.close()
-            gobject.idle_add(classix.set_progress, 0)
+            gobject.idle_add(self.frontend.set_progress, 0)
 
 
 
 class SqliteSearch(SearchBackend):
 
+    def __init__(self, search_string, frontend):
+        self.database_filename = os.path.join(config.datadir, "classix.db")
+        SearchBackend.__init__(self, search_string, frontend)
+    
+    
     def run(self):
-        global classix
         
         try:
             self.stop_thread.clear()
-            conn = sqlite3.connect("classix.db")
+            conn = sqlite3.connect(self.database_filename)
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM codes;")
 
-#            row_count = os.stat(txt_gz_file_name)[stat.ST_SIZE] * 1.0
+#            row_count = os.stat(self.database_filename)[stat.ST_SIZE] * 1.0
 #
 #            fraction = 0.0
 
@@ -273,16 +281,16 @@ class SqliteSearch(SearchBackend):
 #                new_fraction = round(self.db_file.fileobj.tell() / total, 2)
 #                if new_fraction > fraction:
 #                    fraction = new_fraction
-#                    gobject.idle_add(classix.set_progress, fraction)
+#                    gobject.idle_add(self.frontend.set_progress, fraction)
 
                 if self.search_string in node.code.lower() or \
                    self.search_string in node.title.lower() or \
                    self.search_string in node.inclusion.lower():
 
-                    gobject.idle_add(classix.add_node_to_search, node)
+                    gobject.idle_add(self.frontend.add_node_to_search, node)
         finally:
             conn.close()
-#           gobject.idle_add(classix.set_progress, 0)
+#           gobject.idle_add(self.frontend.set_progress, 0)
 
 
 
@@ -327,6 +335,6 @@ if __name__ == "__main__":
     txt_gz_file_name = "classix.gz"
     ui_file_name = "classix.ui"
 
-    classix = Classix(ui_file_name=ui_file_name)
+    classix = MainWindow(ui_file_name=ui_file_name)
     gtk.main()
     
