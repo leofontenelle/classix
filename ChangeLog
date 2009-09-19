@@ -1,3 +1,13 @@
+2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* AUTHORS, NEWS: Added to make autogen happy.
+	* Makefile.am: Added support for automake, non-recursive.
+	* autogen.sh: Added as part of support to the GNU Build System.
+	* classix.in: Fixed path to data files. Simplified header.
+	* classix/: Moved to src/, so that classix.in can be used to create classix.
+	* configure.ac: Added initial support for autoconf.
+	* src/main.py: Fixed path to data files.
+
 2009-09-18  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* classix.in: Added.
