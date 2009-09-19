@@ -1,11 +1,10 @@
-#! @PYTHON@ @PYOPTIONS@
-# -*- python -*-
+#! @PYTHON@
 # -*- coding: utf-8 -*-
 
 import os, gtk
 from classix import config, main
 
-ui_file_name = os.path.join(config.datadir, "classix.ui")
+ui_file_name = os.path.join(config.pkgdatadir, "classix.ui")
 
 main_window = main.MainWindow(ui_file_name=ui_file_name)
 

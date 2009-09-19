@@ -210,7 +210,7 @@ class SearchBackend(threading.Thread):
 class GzipSearch(SearchBackend):
 
     def __init__(self, search_string, frontend):
-        self.database_filename = os.path.join(config.datadir, "classix.gz")
+        self.database_filename = os.path.join(config.pkgdatadir, "classix.gz")
         SearchBackend.__init__(self, search_string, frontend)
     
     
@@ -255,7 +255,7 @@ class GzipSearch(SearchBackend):
 class SqliteSearch(SearchBackend):
 
     def __init__(self, search_string, frontend):
-        self.database_filename = os.path.join(config.datadir, "classix.db")
+        self.database_filename = os.path.join(config.pkgdatadir, "classix.db")
         SearchBackend.__init__(self, search_string, frontend)
     
     
