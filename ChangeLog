@@ -1,8 +1,16 @@
 2009-09-18  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* classix.in: Added.
+	* classix.py: Moved to classix/main.py
+	* classix.{ui,db,gz}: Moved to data/
+	* classix/config.py.in: Added.
+	* classix/main.py: Small adjustments to work as a module.
+
+2009-09-18  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
     * classix: moved to classix.py.
 
-2009-09-11  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
     * classix: Added SQLite search backend. It is already the default, with a
     great performance improvement: 2.8 times quicker when running on an N800's
@@ -12,24 +20,24 @@
     * README: Updated with information on how to create a new database if 
     necessary. Added information on why the name "Classix".
 
-2009-09-11  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
     * classix: Removed debugging code.
 
-2009-09-11  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
     * classix: Isolated the code that parses lines from the cid10n4a.txt file,
       for future reuse in an SQLite importer.
 
-2009-08-29  Luiz Armesto  <luiz.armesto@gmail.com>
+2009-08-29  Luiz Armesto <luiz.armesto@gmail.com>
 
     * classix{,.ui}: Added progressbar and stop button.
 
-2009-08-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
     * classix: Fixed case insensitive search (thanks to Luiz Fernando Armesto).
       Closes issue #1.
 
-2009-08-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
     * classix{,.gz,.ui}, COPYING, README: Initial commit.
