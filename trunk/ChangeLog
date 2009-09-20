@@ -1,5 +1,10 @@
 2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* Makefile.am: Avoid removing data/classix.desktop on "make clean",
+	since it is currently not a generated file.
+
+2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* Makefile.am, data/classix.desktop: Added desktop menu entry.
 
 2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
@@ -8,7 +13,8 @@
 	* Makefile.am: Added support for automake, non-recursive.
 	* autogen.sh: Added as part of support to the GNU Build System.
 	* classix.in: Fixed path to data files. Simplified header.
-	* classix/: Moved to src/, so that classix.in can be used to create classix.
+	* classix/: Moved to src/, so that classix.in can be used to create
+	classix.
 	* configure.ac: Added initial support for autoconf.
 	* src/main.py: Fixed path to data files.
 
@@ -22,36 +28,37 @@
 
 2009-09-18  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-    * classix: moved to classix.py.
+        * classix: moved to classix.py.
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-    * classix: Added SQLite search backend. It is already the default, with a
-    great performance improvement: 2.8 times quicker when running on an N800's
-    SD card. There is a regression, though: the progress bar is not displayed.
-    * classix.db: Added
-    * classix.gz: Removed. See README for instructions on how to get one.
-    * README: Updated with information on how to create a new database if 
-    necessary. Added information on why the name "Classix".
+        * classix: Added SQLite search backend. It is already the default, with
+        a great performance improvement: 2.8 times quicker when running on an
+        N800's SD card. There is a regression, though: the progress bar is not
+        displayed.
+        * classix.db: Added
+        * classix.gz: Removed. See README for instructions on how to get one.
+        * README: Updated with information on how to create a new database if 
+        necessary. Added information on why the name "Classix".
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-    * classix: Removed debugging code.
+        * classix: Removed debugging code.
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-    * classix: Isolated the code that parses lines from the cid10n4a.txt file,
-      for future reuse in an SQLite importer.
+        * classix: Isolated the code that parses lines from the cid10n4a.txt
+        file, for future reuse in an SQLite importer.
 
 2009-08-29  Luiz Armesto <luiz.armesto@gmail.com>
 
-    * classix{,.ui}: Added progressbar and stop button.
+        * classix{,.ui}: Added progressbar and stop button.
 
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-    * classix: Fixed case insensitive search (thanks to Luiz Fernando Armesto).
-      Closes issue #1.
+        * classix: Fixed case insensitive search (thanks to Luiz Fernando
+        Armesto). Closes issue #1.
 
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-    * classix{,.gz,.ui}, COPYING, README: Initial commit.
+        * classix{,.gz,.ui}, COPYING, README: Initial commit.
