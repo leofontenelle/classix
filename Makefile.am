@@ -33,6 +33,3 @@ dist_pkgdata_DATA = \
 
 desktopdir = $(datadir)/applications
 desktop_DATA = data/classix.desktop
-
-CLEANFILES += $(desktop_DATA)
-
