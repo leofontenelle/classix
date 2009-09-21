@@ -1,3 +1,8 @@
+2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Don't stop a search, nor start a new one, when the search
+	text entry is empty.
+
 2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* Makefile.am: Avoid removing data/classix.desktop on "make clean",

@@ -168,14 +168,20 @@ class MainWindow (object):
     
     
     def on_search_button_clicked(self, widget, data=None):
+        entry = self.builder.get_object("search_entry")
+        search_string = entry.get_text().lower()
+        
+        # Don't stop a search or start a new one there's no search string.
+        if not search_string:
+            return
+            
         try:
             self.search_thread.stop()
         except AttributeError:
+            # There's no search going on.
             pass
 
         self.search_liststore.clear()
-        entry = self.builder.get_object("search_entry")
-        search_string = entry.get_text().lower()
         self.search_thread = SqliteSearch(search_string, self)
         self.search_thread.start()
         
