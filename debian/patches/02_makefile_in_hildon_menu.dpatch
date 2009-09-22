@@ -1,0 +1,19 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 02_makefile_in_hildon_menu.dpatch by Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Install .desktop file under Maemo-specific directory.
+
+@DPATCH@
+
+--- classix-0.1.orig/Makefile.in	2009-09-19 23:36:30.000000000 +0100
++++ classix-0.1/Makefile.in	2009-09-19 23:47:05.000000000 +0100
+@@ -165,7 +165,7 @@
+     data/classix.gz \
+     data/classix.db
+ 
+-desktopdir = $(datadir)/applications
++desktopdir = $(datadir)/applications/hildon
+ desktop_DATA = data/classix.desktop
+ all: all-am
+ 
