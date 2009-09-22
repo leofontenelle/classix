@@ -171,8 +171,9 @@ class MainWindow (object):
         entry = self.builder.get_object("search_entry")
         search_string = entry.get_text().lower()
         
-        # Don't stop a search or start a new one there's no search string.
-        if not search_string:
+        # Don't stop a search or start a new one if there's no search string, or
+        # if the current search is the same as the previous search. 
+        if not search_string or search_string == self.search_thread.search_string:
             return
             
         try:
