@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Classix
+Comment=Search ICD-10 codes
+Exec=classix
+Categories=Education;Science;MedicalSoftware
+

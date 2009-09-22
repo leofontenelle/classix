@@ -1,0 +1,46 @@
+Classix is an ICD-10 code lookup application. Currently it searches for 
+arbitrary text in code (eg "E11"), title (eg "Diabetes mellitus não-insulino-
+dependente"), and inclusion notes (eg "Nota: Usar código adicional  de causa 
+externa (Capítulo XX), se necessário, para identificar a droga, se induzido por 
+droga."). It doesn't search in exclusion notes, on purpose. Currently it only 
+supports the Brazilian Portuguese version of ICD-10.
+
+The name comes from "classification" (the "C" in ICD-10 stands for 
+"Classification") and from "X", the roman numeral for 10.
+
+
+
+Classix is copyright (C) 2009 Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ 
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+The database is copyright by World Health Organization and Centro Brasileiro de 
+Classificação de Doenças. It can be freely used and redistributed provided that 
+authorship is recognized and there is no charge. This means you can sell 
+Classix but not with the database.
+
+classix.gz can be created by converting cid10n4a.txt from codepage 1252 to 
+UTF-8 and compressing with gzip:
+
+$ iconv cid10n4a.txt --from=cp1252  --to=utf-8 | gzip > classix.gz
+
+And cid10n4a.txt can be be retrieved from the following URL:
+
+$ http://gamba.epm.br/pub/pesqcid/cid10n4a.txt
+
+The source code includes an importer to create classix.db from cid10n4a.txt
+
+
