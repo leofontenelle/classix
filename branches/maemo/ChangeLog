@@ -1,5 +1,9 @@
 2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+        * debian/*: Added metadata to create packages for Maemo 4.1 "Diablo".
+
+2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* src/main.py: Don't stop a search, nor start a new one, when the search
 	text entry is empty.
 
