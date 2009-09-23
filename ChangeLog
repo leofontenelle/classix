@@ -1,3 +1,10 @@
+2009-09-22  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py:
+	- Handle exception when checking for the string in the previous search 
+	  but there's no previous search.
+	- Display progress bar for searches using the SQLite 3 back end.
+
 2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* src/main.py: Don't search twice for the same string.
