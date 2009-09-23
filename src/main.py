@@ -17,10 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import codecs
 import gobject
 import gtk
-import gzip
 import os
 import sqlite3
 import stat
@@ -222,51 +220,6 @@ class SearchBackend(threading.Thread):
 
 
 
-class GzipSearch(SearchBackend):
-
-    def __init__(self, search_string, frontend):
-        self.database_filename = os.path.join(config.pkgdatadir, "classix.gz")
-        SearchBackend.__init__(self, search_string, frontend)
-    
-    
-    def run(self):
-        
-        try:
-            self.stop_thread.clear()
-            self.db_file = gzip.open(self.database_filename)
-
-            # Get the file size as a float
-            total = os.stat(self.database_filename)[stat.ST_SIZE] * 1.0
-
-            fraction = 0.0
-
-            for line in self.db_file:
-                if self.stop_thread.isSet():
-                    break
-                
-                try:
-                    node = parse_cid10n4a_txt(line)
-                except AttributeError:
-                    print "Error parsing this line:\n%s" % line
-                    continue
-                
-                # Update the progressbar
-                new_fraction = round(self.db_file.fileobj.tell() / total, 2)
-                if new_fraction > fraction:
-                    fraction = new_fraction
-                    gobject.idle_add(self.frontend.set_progress, fraction)
-
-                if self.search_string in node.code.lower() or \
-                   self.search_string in node.title.lower() or \
-                   self.search_string in node.inclusion.lower():
-
-                    gobject.idle_add(self.frontend.add_node_to_search, node)
-        finally:
-            self.db_file.close()
-            gobject.idle_add(self.frontend.set_progress, 0)
-
-
-
 class SqliteSearch(SearchBackend):
 
     def __init__(self, search_string, frontend):
@@ -321,6 +274,8 @@ class SqliteDatabaseCreator (object):
         """Instantiates the importer; accepts file names and not files.
         cid10n4a.txt here is the official file, encoded with Codepage 1252."""
         
+        import codecs
+        
         self.input = codecs.open(input_file_name, encoding="cp1252")
     
     
@@ -351,9 +306,8 @@ class SqliteDatabaseCreator (object):
 
 
 if __name__ == "__main__":
-    txt_gz_file_name = "classix.gz"
-    ui_file_name = "classix.ui"
 
-    classix = MainWindow(ui_file_name=ui_file_name)
+    classix = MainWindow(ui_file_name="classix.ui")
+
     gtk.main()
     
