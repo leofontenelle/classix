@@ -1,5 +1,15 @@
 2009-09-22  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* data/classix.ui:
+	- Set default window title to 480x320;
+	- Allow GtkTreeView to shrink when the matches for current search are
+	  less wide than those in the previous search.
+	- Don't show text in the progress bar or the "Stop" button.
+	* src/main.py: Fix progress in progress bar for searches with the 
+	SQLite3 back end (it only showed 0.0 or 1.0).
+
+2009-09-22  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* src/main.py:
 	- Handle exception when checking for the string in the previous search 
 	  but there's no previous search.

@@ -281,7 +281,7 @@ class SqliteSearch(SearchBackend):
             conn = sqlite3.connect(self.database_filename)
             
             cursor = conn.execute("SELECT count(code) FROM codes;")
-            total = cursor.fetchone()[0]
+            total = cursor.fetchone()[0] * 1.0
             fraction = 0.0
             
             cursor = conn.execute("SELECT * FROM codes;")
