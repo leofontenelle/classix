@@ -171,10 +171,18 @@ class MainWindow (object):
         entry = self.builder.get_object("search_entry")
         search_string = entry.get_text().lower()
         
-        # Don't stop a search or start a new one if there's no search string, or
-        # if the current search is the same as the previous search. 
-        if not search_string or search_string == self.search_thread.search_string:
+        # Don't stop a search or start a new one if there's no search string.
+        if not search_string:
             return
+        
+        # Don't stop a search or start a new one if the current search is the
+        # same as the previous search. 
+        try:
+            if search_string == self.search_thread.search_string:
+                return
+        except AttributeError:
+            # There's no search going on.
+            pass
             
         try:
             self.search_thread.stop()
@@ -186,7 +194,7 @@ class MainWindow (object):
         self.search_thread = SqliteSearch(search_string, self)
         self.search_thread.start()
         
-#        self.progress_container.show()
+        self.progress_container.show()
 
 
     def on_stop_button_clicked(self, widget, data=None):
@@ -271,24 +279,28 @@ class SqliteSearch(SearchBackend):
         try:
             self.stop_thread.clear()
             conn = sqlite3.connect(self.database_filename)
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM codes;")
+            
+            cursor = conn.execute("SELECT count(code) FROM codes;")
+            total = cursor.fetchone()[0]
+            fraction = 0.0
+            
+            cursor = conn.execute("SELECT * FROM codes;")
 
-#            row_count = os.stat(self.database_filename)[stat.ST_SIZE] * 1.0
-#
-#            fraction = 0.0
-
+            # Yes, even Python can use a counter once in a while...
+            i = 0
+            
             for row in cursor:
                 if self.stop_thread.isSet():
                     break
                 
+                i = i + 1
                 node = Node(row[0], row[1], row[2], row[3])
 
-#                # Update the progressbar
-#                new_fraction = round(self.db_file.fileobj.tell() / total, 2)
-#                if new_fraction > fraction:
-#                    fraction = new_fraction
-#                    gobject.idle_add(self.frontend.set_progress, fraction)
+                # Update the progressbar
+                new_fraction = round(i / total, 2)
+                if new_fraction > fraction:
+                    fraction = new_fraction
+                    gobject.idle_add(self.frontend.set_progress, fraction)
 
                 if self.search_string in node.code.lower() or \
                    self.search_string in node.title.lower() or \
@@ -297,7 +309,7 @@ class SqliteSearch(SearchBackend):
                     gobject.idle_add(self.frontend.add_node_to_search, node)
         finally:
             conn.close()
-#           gobject.idle_add(self.frontend.set_progress, 0)
+            gobject.idle_add(self.frontend.set_progress, 0)
 
 
 
