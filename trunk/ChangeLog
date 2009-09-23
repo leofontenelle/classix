@@ -1,3 +1,11 @@
+2009-09-23  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Removed data/classix.gz.
+	* README: Removed information about data/classix.gz.
+	* data/classix.gz: Removed because the SQLite 3 back end has feature
+	parity with the deprecated gziped text file back end.
+	* src/main.py: Removed obsolete code.
+
 2009-09-22  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* data/classix.ui:
