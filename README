@@ -32,15 +32,7 @@ Classificação de Doenças. It can be freely used and redistributed provided th
 authorship is recognized and there is no charge. This means you can sell 
 Classix but not with the database.
 
-classix.gz can be created by converting cid10n4a.txt from codepage 1252 to 
-UTF-8 and compressing with gzip:
+The database can created by importing cid10n4a.txt with a tool in the source
+code. The cid10n4a.txt file can be directly downloaded from:
 
-$ iconv cid10n4a.txt --from=cp1252  --to=utf-8 | gzip > classix.gz
-
-And cid10n4a.txt can be be retrieved from the following URL:
-
-$ http://gamba.epm.br/pub/pesqcid/cid10n4a.txt
-
-The source code includes an importer to create classix.db from cid10n4a.txt
-
-
+http://gamba.epm.br/pub/pesqcid/cid10n4a.txt
