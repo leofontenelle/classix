@@ -28,7 +28,6 @@ src/config.py: Makefile
 
 dist_pkgdata_DATA = \
     data/classix.ui \
-    data/classix.gz \
     data/classix.db
 
 desktopdir = $(datadir)/applications
