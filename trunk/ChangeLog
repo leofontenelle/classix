@@ -1,3 +1,8 @@
+2009-09-28  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui: Explicitly show headers in the search GtkTreeView.
+	This is needed for the Maemo version of GTK+ 2.10. Closes issue #5.
+
 2009-09-23  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* Makefile.am: Removed data/classix.gz.
