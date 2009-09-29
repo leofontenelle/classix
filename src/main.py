@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import gobject
 import gtk
 import os
@@ -25,7 +24,11 @@ import stat
 import threading
 from . import config
 
+
+
 gtk.gdk.threads_init()
+
+
 
 def parse_cid10n4a_txt(line):
     """Accepts a line from cid10n4a.txt as argument, and returns the 
