@@ -8,9 +8,17 @@ AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
 AM_PATH_PYTHON(2.5)
+# TODO: Check dependencies
 
-# TODO: Check for dependencies
-# TODO: Support Gettext
+GETTEXT_PACKAGE=classix
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
+AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.40.0])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([
+        Makefile
+        data/classix.desktop
+        po/Makefile.in
+        src/config.py])
 AC_OUTPUT
