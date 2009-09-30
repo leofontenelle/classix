@@ -27,7 +27,7 @@
             </child>
             <child>
               <object class="GtkButton" id="search_button">
-                <property name="label" translatable="yes">gtk-find</property>
+                <property name="label">gtk-find</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -80,7 +80,7 @@
             </child>
             <child>
               <object class="GtkButton" id="stop_button">
-                <property name="label" translatable="yes">gtk-stop</property>
+                <property name="label">gtk-stop</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="no_show_all">True</property>
@@ -104,11 +104,11 @@
   </object>
   <object class="GtkTreeViewColumn" id="search_tvcol_title">
     <property name="sizing">autosize</property>
-    <property name="title">T&#xED;tulo</property>
+    <property name="title" translatable="yes">Title</property>
     <property name="expand">True</property>
   </object>
   <object class="GtkTreeViewColumn" id="search_tvcol_code">
     <property name="sizing">autosize</property>
-    <property name="title">C&#xF3;digo</property>
+    <property name="title" translatable="yes">Code</property>
   </object>
 </interface>

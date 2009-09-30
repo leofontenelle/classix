@@ -1,3 +1,22 @@
+2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* README: Added installation information.
+	* configure.ac: Fixed "make distcheck".
+
+2009-09-28  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Added support for localization.
+	* classix.in: Added support for localization.
+	* configure.ac: Added support for localization.
+	* data/classix.desktop: Moved to data/classix.desktop.in
+	* data/classix.desktop.in: Added support for localization.
+	* data/classix.ui: Added support for localization.
+	* po/LINGUAS: Added "pt_BR".
+	* po/POTFILES.in: Added data/classix.desktop.in and data/classix.ui.
+	* po/POTFILES.skip: Added src/main.py.
+	* po/pt_BR.po: Added Brazilian Portuguese translation.
+	* src/main.py: Added whitespace.
+
 2009-09-28  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* data/classix.ui: Explicitly show headers in the search GtkTreeView.
