@@ -1,5 +1,9 @@
 2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* debian/patches/*: Updated to current Makefile.{am,in}.
+
+2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* README: Added installation information.
 	* configure.ac: Fixed "make distcheck".
 
