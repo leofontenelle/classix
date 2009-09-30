@@ -1,3 +1,5 @@
+== About Classix ==
+
 Classix is an ICD-10 code lookup application. Currently it searches for 
 arbitrary text in code (eg "E11"), title (eg "Diabetes mellitus não-insulino-
 dependente"), and inclusion notes (eg "Nota: Usar código adicional  de causa 
@@ -9,6 +11,24 @@ The name comes from "classification" (the "C" in ICD-10 stands for
 "Classification") and from "X", the roman numeral for 10.
 
 
+== How to build it ==
+
+Ideally, you should get a binary package for you distribution. If that's not 
+possible, unpack the source code package, change to the new directory and run 
+these commands:
+
+./configure --prefix=/usr; make; sudo make install
+
+You can also run "sudo make uninstall" from the same directory.
+
+
+== Dependencies ==
+
+Classix depends on python 2.5, sqlite 3, pygtk 2.10 and pyobject 2.12. Besides 
+these "run time" dependencies, you'll need intltool 0.40, automake and autoconf.
+
+
+== Copyright ==
 
 Classix is copyright (C) 2009 Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
@@ -24,8 +44,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
 
 The database is copyright by World Health Organization and Centro Brasileiro de 
 Classificação de Doenças. It can be freely used and redistributed provided that 

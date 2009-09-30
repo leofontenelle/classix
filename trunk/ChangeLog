@@ -1,3 +1,8 @@
+2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* README: Added installation information.
+	* configure.ac: Fixed "make distcheck".
+
 2009-09-28  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* Makefile.am: Added support for localization.

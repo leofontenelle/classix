@@ -18,5 +18,7 @@ IT_PROG_INTLTOOL([0.40.0])
 
 AC_CONFIG_FILES([
         Makefile
-        po/Makefile.in])
+        data/classix.desktop
+        po/Makefile.in
+        src/config.py])
 AC_OUTPUT
