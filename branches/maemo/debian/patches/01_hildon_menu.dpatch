@@ -1,0 +1,33 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01_hildon_menu.dpatch by  <leonardof@oliver>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad classix-maemo~/Makefile.am classix-maemo/Makefile.am
+--- classix-maemo~/Makefile.am	2009-09-29 22:36:08.585750088 -0300
++++ classix-maemo/Makefile.am	2009-09-29 22:49:47.445750667 -0300
+@@ -35,7 +35,7 @@
+ 	data/classix.db
+ 
+ 
+-desktopdir = $(datadir)/applications
++desktopdir = $(datadir)/applications/hildon
+ desktop_in_files = data/classix.desktop.in
+ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+ @INTLTOOL_DESKTOP_RULE@
+
+diff -urNad classix-maemo~/Makefile.in classix-maemo/Makefile.in
+--- classix-maemo~/Makefile.in	2009-09-29 22:44:06.297749041 -0300
++++ classix-maemo/Makefile.in	2009-09-29 22:49:58.458250369 -0300
+@@ -218,7 +218,7 @@
+ 	data/classix.ui \
+ 	data/classix.db
+ 
+-desktopdir = $(datadir)/applications
++desktopdir = $(datadir)/applications/hildon
+ desktop_in_files = data/classix.desktop.in
+ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+ DISTCLEANFILES = \
+
