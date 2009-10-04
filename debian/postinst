@@ -21,7 +21,7 @@
 case "$1" in
     configure)
         if which maemo-select-menu-location > /dev/null; then
-            maemo-select-menu-location classix.desktop
+            maemo-select-menu-location classix.desktop tana_fi_my_selection
         fi
     ;;
 
