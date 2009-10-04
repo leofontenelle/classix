@@ -1,3 +1,15 @@
+2009-10-03  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am:
+	* configure.ac:
+	* data/Makefile.am:
+	* src/Makefile.am:
+	- Package name is now "Classix", while tarname remains "classix".
+	- Added built-in support for peculiar .desktop file location
+	  in Maemo systems.
+	- Split makefiles among directories. I hope this time I did fix
+	  "make distcheck".
+
 2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* README: Added installation information.
