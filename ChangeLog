@@ -1,3 +1,7 @@
+2009-10-04  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* README: Improved information on dependencies and building.
+
 2009-10-03  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* Makefile.am:

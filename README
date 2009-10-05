@@ -7,9 +7,24 @@ externa (Capítulo XX), se necessário, para identificar a droga, se induzido po
 droga."). It doesn't search in exclusion notes, on purpose. Currently it only 
 supports the Brazilian Portuguese version of ICD-10.
 
-The name comes from "classification" (the "C" in ICD-10 stands for 
-"Classification") and from "X", the roman numeral for 10.
+The name comes from "classification" (the "C" in ICD-10) and from "X", the roman
+numeral for 10.
 
+
+== Dependencies ==
+
+To run Classix you'll need python 2.5 or newer, with libsqlite3-0 (which is 
+almost always a dependency of python2.5 or newer); python-gtk2 2.10 or newer; 
+and python-gobject 2.12 or newer.
+
+To build from the source code package, you'll need also intltool 0.40 or newer; 
+and m4, autotools-dev, autoconf and automake. Installing intltool may 
+bring the latter packages as dependencies.
+
+To build from the Subversion repository, you'll need all of the above, plus 
+gnome-common and libglib2.0-dev.
+
+The package names vary a little from one GNU/Linux distribution to another.
 
 == How to build it ==
 
@@ -17,15 +32,12 @@ Ideally, you should get a binary package for you distribution. If that's not
 possible, unpack the source code package, change to the new directory and run 
 these commands:
 
-./configure --prefix=/usr; make; sudo make install
+./configure --prefix=/usr && make && sudo make install
 
 You can also run "sudo make uninstall" from the same directory.
 
-
-== Dependencies ==
-
-Classix depends on python 2.5, sqlite 3, pygtk 2.10 and pyobject 2.12. Besides 
-these "run time" dependencies, you'll need intltool 0.40, automake and autoconf.
+If you check out the source code from the Subversion repository, you'll need to 
+replace the first command with "./autogen.sh --prefix=/usr"
 
 
 == Copyright ==
