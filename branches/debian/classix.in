@@ -1,0 +1,18 @@
+#! @PYTHON@
+# -*- coding: utf-8 -*-
+
+import os, gtk
+import gettext, locale
+from classix import config, main
+
+locale.setlocale(locale.LC_ALL, "")
+# Setting the text domain for the locale module is important for gtk.Builder.
+for module in gettext, locale:
+    module.bindtextdomain('classix',config.localedir)
+    module.textdomain('classix')
+
+ui_file_name = os.path.join(config.pkgdatadir, "classix.ui")
+
+main_window = main.MainWindow(ui_file_name=ui_file_name)
+
+gtk.main()
