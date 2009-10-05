@@ -1,5 +1,9 @@
 2009-10-04  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* README: Improved information on dependencies and building.
+
+2009-10-04  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* debian/changelog: Information for first release.
 	* debian/control: Removed obsolete dpatch dependency.
 	* debian/rules: Passed PYTHON="/usr/bin/python2.5" so that the package 
