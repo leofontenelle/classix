@@ -2,7 +2,7 @@ Source: classix
 Section: user/science
 Priority: extra
 Maintainer: Leonardo Ferreira Fontenelle <leonardof@gnome.org>
-Build-Depends: debhelper (>= 4), dpatch, autotools-dev, python2.5-dev
+Build-Depends: debhelper (>= 4), autotools-dev, python2.5-dev
 Standards-Version: 3.6.0
 Homepage: http://code.google.com/p/classix/
 
