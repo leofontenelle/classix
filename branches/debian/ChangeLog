@@ -1,3 +1,14 @@
+2009-10-05  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	This is the "general" Debian/Ubuntu branch, in opposition to the other
+	Maemo-specific branch.
+
+	* debian/changelog: Information for first release.
+	* debian/compat: Bumped to version 7.
+	* debian/control: Updated to the current Debian Python Policy.
+	* debian/patches/*: Removed deprecated patches.
+	* debian/rules: Removed hard coded Python 2.5 dependency.
+
 2009-10-04  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* README: Improved information on dependencies and building.
