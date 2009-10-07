@@ -1,10 +1,24 @@
-2009-10-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+2009-10-05  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
-	* NEWS: Updated with information for release 0.1.
+	This is the "general" Debian/Ubuntu branch, in opposition to the other
+	Maemo-specific branch.
+
+	* debian/changelog: Information for first release.
+	* debian/compat: Bumped to version 7.
+	* debian/control: Updated to the current Debian Python Policy.
+	* debian/patches/*: Removed deprecated patches.
+	* debian/rules: Removed hard coded Python 2.5 dependency.
 
 2009-10-04  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* README: Improved information on dependencies and building.
+
+2009-10-04  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* debian/changelog: Information for first release.
+	* debian/control: Removed obsolete dpatch dependency.
+	* debian/rules: Passed PYTHON="/usr/bin/python2.5" so that the package 
+	can be built in a system with Python 2.6.
 
 2009-10-03  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
@@ -17,6 +31,11 @@
 	  in Maemo systems.
 	- Split makefiles among directories. I hope this time I did fix
 	  "make distcheck".
+	* debian/*: removed dependency on dpatch.
+
+2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* debian/patches/*: Updated to current Makefile.{am,in}.
 
 2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
@@ -73,8 +92,12 @@
 
 2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
-	* src/main.py: Don't stop a search, nor start a new one, when the search
-	text entry is empty.
+        * debian/*: Added metadata to create packages for Maemo 4.1 "Diablo".
+
+2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Don't stop a search, nor start a new one, when the
+	search text entry is empty.
 
 2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
@@ -106,37 +129,37 @@
 
 2009-09-18  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: moved to classix.py.
+	* classix: moved to classix.py.
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Added SQLite search backend. It is already the default, with
-        a great performance improvement: 2.8 times quicker when running on an
-        N800's SD card. There is a regression, though: the progress bar is not
-        displayed.
-        * classix.db: Added
-        * classix.gz: Removed. See README for instructions on how to get one.
-        * README: Updated with information on how to create a new database if 
-        necessary. Added information on why the name "Classix".
+	* classix: Added SQLite search backend. It is already the default,
+	with a great performance improvement: 2.8 times quicker when running
+	on an N800's SD card. There is a regression, though: the progress bar
+	is not displayed.
+	* classix.db: Added
+	* classix.gz: Removed. See README for instructions on how to get one.
+	* README: Updated with information on how to create a new database if 
+	necessary. Added information on why the name "Classix".
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Removed debugging code.
+	* classix: Removed debugging code.
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Isolated the code that parses lines from the cid10n4a.txt
-        file, for future reuse in an SQLite importer.
+	* classix: Isolated the code that parses lines from the cid10n4a.txt
+	file, for future reuse in an SQLite importer.
 
 2009-08-29  Luiz Armesto <luiz.armesto@gmail.com>
 
-        * classix{,.ui}: Added progressbar and stop button.
+	* classix{,.ui}: Added progressbar and stop button.
 
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Fixed case insensitive search (thanks to Luiz Fernando
-        Armesto). Closes issue #1.
+	* classix: Fixed case insensitive search (thanks to Luiz Fernando
+	Armesto). Closes issue #1.
 
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix{,.gz,.ui}, COPYING, README: Initial commit.
+	* classix{,.gz,.ui}, COPYING, README: Initial commit.
