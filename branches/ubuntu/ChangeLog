@@ -1,3 +1,8 @@
+2009-10-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* debian/rules, debian/changelog: Ubuntu specific information. This
+	branch will not be used for Debian releases.
+
 2009-10-05  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	This is the "general" Debian/Ubuntu branch, in opposition to the other
