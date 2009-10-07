@@ -1,6 +1,5 @@
-classix (0.1-debian1) stable; urgency=low
+classix (0.1-jaunty1) jaunty; urgency=low
 
   * Initial release
 
  -- Leonardo Ferreira Fontenelle <leonardof@gnome.org>  Sat, 19 Sep 2009 21:30:45 +0100
-
