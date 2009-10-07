@@ -1,0 +1,9 @@
+===========
+Version 0.1
+===========
+
+* This is the first public release of Classix!
+* SQLite backend, 2,8 times faster than the initial text-based backend.
+* Search is case insensitive.
+* Internationalization support, including a Brazilian Portuguese translation.
+* Basic KDE/GNOME/XFCE/etc integration (menu entry).
