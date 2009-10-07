@@ -1,0 +1,33 @@
+# Brazilian Portuguese translation of Classix
+# Copyright (C) 2009 Leonardo Ferreira Fontenelle.
+# This file is distributed under the same license as the classix package.
+# Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: classix 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-28 21:21-0300\n"
+"PO-Revision-Date: 2009-09-28 21:21-0300\n"
+"Last-Translator: Leonardo Ferreira Fontenelle <leonardof@gnome.org>\n"
+"Language-Team: Brazilian Portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../data/classix.desktop.in.h:1 ../data/classix.ui.h:1
+msgid "Classix"
+msgstr "Classix"
+
+#: ../data/classix.desktop.in.h:2
+msgid "Search ICD-10 codes"
+msgstr "Pesquise códigos CID-10"
+
+#: ../data/classix.ui.h:2
+msgid "Code"
+msgstr "Código"
+
+#: ../data/classix.ui.h:3
+msgid "Title"
+msgstr "Título"
