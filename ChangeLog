@@ -1,5 +1,9 @@
 2009-10-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* NEWS: Updated with information for release 0.1.
+
+2009-10-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* debian/rules, debian/changelog: Ubuntu specific information. This
 	branch will not be used for Debian releases.
 
