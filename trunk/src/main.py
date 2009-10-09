@@ -133,6 +133,8 @@ class MainWindow (object):
 
         self.builder.connect_signals(self)
         self.builder.get_object("main_window").show_all()
+        self.window_in_fullscreen = False
+        self.keysym_to_fullscreen = gtk.keysyms.F11
 
         self.progress_container = self.builder.get_object("hbox2")
         self.progress_container.hide()
@@ -163,7 +165,17 @@ class MainWindow (object):
         else:
             raise
 
-    
+
+    def on_key_press(self, widget, event, *args):
+        if event.keyval == self.keysym_to_fullscreen:
+            # The "Full screen" hardware key has been pressed
+            window = self.builder.get_object("main_window")
+            if self.window_in_fullscreen:
+                window.unfullscreen ()
+            else:
+                window.fullscreen ()
+
+
     def on_main_window_destroy(self, widget, data=None):
         gtk.main_quit()
     
@@ -204,6 +216,19 @@ class MainWindow (object):
         except AttributeError:
             pass
         self.set_progress(0.0)
+
+    def on_window_state_change(self, widget, event, *args):
+        if event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN:
+            self.window_in_fullscreen = True
+        else:
+            self.window_in_fullscreen = False
+
+
+
+class HildonMainWindow(MainWindow):
+    def __init__(self):
+        MainWindow.__init__(self)
+        self.keysym_to_fullscreen = gtk.keysyms.F6
 
 
 
