@@ -16,11 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import codecs
 import gobject
 import gtk
 import os
 import sqlite3
 import stat
+import sys
 import threading
 from . import config
 
@@ -133,24 +135,29 @@ class MainWindow (object):
 
         self.builder.connect_signals(self)
         self.builder.get_object("main_window").show_all()
+        self.window_in_fullscreen = False
+        self.keysym_to_fullscreen = gtk.keysyms.F11
 
         self.progress_container = self.builder.get_object("hbox2")
         self.progress_container.hide()
 
         self.progressbar = self.builder.get_object("progressbar")
 
+    
+    def run(self):
+        gtk.main()
 
     def set_progress(self, fraction):
-        self.progressbar.set_fraction(fraction)
+        gobject.idle_add(self.progressbar.set_fraction, fraction)
 
         # Hide the progressbar if the fraction is set to zero
         if fraction == 0.0:
-            self.progress_container.hide()
+            gobject.idle_add(self.progress_container.hide, )
         return False # so that glib.idle_add won't repeat this callback forever.
 
 
     def add_node_to_search(self, node):
-        self.search_liststore.append([node])
+        gobject.idle_add(self.search_liststore.append,[node])
         return False # so that glib.idle_add won't repeat this callback forever.
     
     
@@ -163,7 +170,17 @@ class MainWindow (object):
         else:
             raise
 
-    
+
+    def on_key_press(self, widget, event, *args):
+        if event.keyval == self.keysym_to_fullscreen:
+            # The "Full screen" hardware key has been pressed
+            window = self.builder.get_object("main_window")
+            if self.window_in_fullscreen:
+                window.unfullscreen ()
+            else:
+                window.fullscreen ()
+
+
     def on_main_window_destroy(self, widget, data=None):
         gtk.main_quit()
     
@@ -204,6 +221,69 @@ class MainWindow (object):
         except AttributeError:
             pass
         self.set_progress(0.0)
+
+
+    def on_window_state_change(self, widget, event, *args):
+        if event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN:
+            self.window_in_fullscreen = True
+        else:
+            self.window_in_fullscreen = False
+
+
+
+class HildonMainWindow(MainWindow):
+    def __init__(self):
+        MainWindow.__init__(self)
+        self.keysym_to_fullscreen = gtk.keysyms.F6
+
+
+
+class CommandLineInterface(gobject.GObject):
+
+    def __init__(self):
+        
+        import gettext
+        _ = gettext.gettext
+
+    
+        # Make sure the standard output accepts non-ascii encoding even
+        # if it's not printing to the terminal. This is necessary, in example,
+        # when the output is redirected to a text file.
+        encoding = sys.getdefaultencoding()
+        sys.stdout = codecs.getwriter(encoding)(sys.stdout)
+        
+        from optparse import OptionParser
+        
+        # Translators: Leave '%prog' untranslated; and keep single or double
+        # quotes around the translation of 'text to be searched'.
+        usage = _("usage: %prog [ OPTIONS | \"text to be searched\" ] - Search for ICD-10 codes")
+        parser = OptionParser(usage=usage, version=config.VERSION,
+            epilog=_("Run the application without arguments to open the graphical user interface. Specify the text to be search as a command line argument if you want the results to be printed to the standard output (usually the terminal)."))
+        (options, args) = parser.parse_args()
+        
+        # The command line parser is used for:
+        # 1. get -h, --help flags, which are implicit; and
+        # 2. get argv[1], which is the search string
+        self.search_string = args[0].decode(encoding).lower()
+    
+    
+    def add_node_to_search(self, node):
+        sys.stdout.write("%(code)s\t%(title)s\n" % ({"code": node.code, "title": node.title}))
+        
+        
+    def run(self):        
+    
+        self.search_thread = SqliteSearch(self.search_string, self)
+        self.search_thread.start()
+        
+        import time
+        while self.search_thread.isAlive():
+            time.sleep(0.1)
+        
+    
+    def set_progress(self, fraction=None):
+        pass
+            
 
 
 
@@ -256,16 +336,16 @@ class SqliteSearch(SearchBackend):
                 new_fraction = round(i / total, 2)
                 if new_fraction > fraction:
                     fraction = new_fraction
-                    gobject.idle_add(self.frontend.set_progress, fraction)
+                    self.frontend.set_progress(fraction)
 
                 if self.search_string in node.code.lower() or \
                    self.search_string in node.title.lower() or \
                    self.search_string in node.inclusion.lower():
 
-                    gobject.idle_add(self.frontend.add_node_to_search, node)
+                    self.frontend.add_node_to_search(node)
         finally:
             conn.close()
-            gobject.idle_add(self.frontend.set_progress, 0)
+            self.frontend.set_progress(0.0)
 
 
 

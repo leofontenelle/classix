@@ -8,6 +8,8 @@
     <property name="default_height">320</property>
     <property name="icon_name">applications-science</property>
     <signal name="destroy" handler="on_main_window_destroy"/>
+    <signal name="key-press-event" handler="on_key_press"/>
+    <signal name="window-state-event" handler="on_window_state_change"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
