@@ -13,6 +13,17 @@ for module in gettext, locale:
 
 ui_file_name = os.path.join(config.pkgdatadir, "classix.ui")
 
-main_window = main.MainWindow(ui_file_name=ui_file_name)
+try:
+    import hildon
+    hildon_loaded = True
+except ImportError:
+    hildon_loaded = False
 
-gtk.main()
+if len(os.sys.argv) > 1:
+    main_window = main.CommandLineInterface()
+elif hildon_loaded:
+    main_window = main.HildonMainWindow(ui_file_name=ui_file_name)
+else:
+    main_window = main.MainWindow(ui_file_name=ui_file_name)
+
+main_window.run()
