@@ -1,3 +1,16 @@
+2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix.in:
+	* src/main.py:
+	Added command line interface.
+
+2009-10-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py:
+	* data/classix.ui:
+	* classix.in:
+	Added full screen mode (F6 in on Maemo, F11 otherwise)
+
 2009-10-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* configure.ac: Post release version bump to 0.2.
