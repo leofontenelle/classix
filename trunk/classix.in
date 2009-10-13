@@ -15,8 +15,15 @@ ui_file_name = os.path.join(config.pkgdatadir, "classix.ui")
 
 try:
     import hildon
-    main_window = main.HildonMainWindow(ui_file_name=ui_file_name)
+    hildon_loaded = True
 except ImportError:
+    hildon_loaded = False
+
+if len(os.sys.argv) > 1:
+    main_window = main.CommandLineInterface()
+elif hildon_loaded:
+    main_window = main.HildonMainWindow(ui_file_name=ui_file_name)
+else:
     main_window = main.MainWindow(ui_file_name=ui_file_name)
 
-gtk.main()
+main_window.run()
