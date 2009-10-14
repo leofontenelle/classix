@@ -148,16 +148,16 @@ class MainWindow (object):
         gtk.main()
 
     def set_progress(self, fraction):
-        gobject.idle_add(self.progressbar.set_fraction, fraction)
+        self.progressbar.set_fraction(fraction)
 
         # Hide the progressbar if the fraction is set to zero
         if fraction == 0.0:
-            gobject.idle_add(self.progress_container.hide, )
+            self.progress_container.hide()
         return False # so that glib.idle_add won't repeat this callback forever.
 
 
     def add_node_to_search(self, node):
-        gobject.idle_add(self.search_liststore.append,[node])
+        self.search_liststore.append([node])
         return False # so that glib.idle_add won't repeat this callback forever.
     
     
@@ -232,8 +232,8 @@ class MainWindow (object):
 
 
 class HildonMainWindow(MainWindow):
-    def __init__(self):
-        MainWindow.__init__(self)
+    def __init__(self, ui_file_name):
+        MainWindow.__init__(self, ui_file_name)
         self.keysym_to_fullscreen = gtk.keysyms.F6
 
 
@@ -269,6 +269,7 @@ class CommandLineInterface(gobject.GObject):
     
     def add_node_to_search(self, node):
         sys.stdout.write("%(code)s\t%(title)s\n" % ({"code": node.code, "title": node.title}))
+        return False
         
         
     def run(self):        
@@ -276,13 +277,14 @@ class CommandLineInterface(gobject.GObject):
         self.search_thread = SqliteSearch(self.search_string, self)
         self.search_thread.start()
         
-        import time
-        while self.search_thread.isAlive():
-            time.sleep(0.1)
-        
+        gtk.main()
+    
     
     def set_progress(self, fraction=None):
-        pass
+        if fraction == 0.0:
+            gtk.main_quit()
+        else:
+            return False
             
 
 
@@ -336,16 +338,16 @@ class SqliteSearch(SearchBackend):
                 new_fraction = round(i / total, 2)
                 if new_fraction > fraction:
                     fraction = new_fraction
-                    self.frontend.set_progress(fraction)
+                    gobject.idle_add(self.frontend.set_progress, fraction)
 
                 if self.search_string in node.code.lower() or \
                    self.search_string in node.title.lower() or \
                    self.search_string in node.inclusion.lower():
 
-                    self.frontend.add_node_to_search(node)
+                    gobject.idle_add(self.frontend.add_node_to_search, node)
         finally:
             conn.close()
-            self.frontend.set_progress(0.0)
+            gobject.idle_add(self.frontend.set_progress, 0.0)
 
 
 
