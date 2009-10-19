@@ -1,5 +1,10 @@
 2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* src/main.py: Added a new backend with indexed search.
+	* data/classix.db: Added an index to the database.
+
+2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* src/main.py: (Hopefully) fixed threading in the GUI.
 
 2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
