@@ -27,19 +27,50 @@ import sys
 import threading
 from . import config
 
+if __debug__: import time
+
+import gettext
+_ = gettext.gettext
+N_ = gettext.ngettext
 
 
 gtk.gdk.threads_init()
 
 
 
+def common_keys(dictionaries_list = []):
+    """Returns a list of the keys that exist in every dictionary included in the
+    provided list."""
+    
+    class SomeDictDoesntHaveThisKey(Exception):
+        pass
+    
+    result = []
+    
+    for key in dictionaries_list[0]:
+        try:
+            for dictionary in dictionaries_list[1:]:
+                if not dictionary.has_key(key):
+                    raise SomeDictDoesntHaveThisKey
+            result.append(key)
+        except SomeDictDoesntHaveThisKey:
+            pass
+    
+    return result
+
+
 def difference_dict(a,b):
+    """Returns a list of the items that exist in the first provided list but 
+    not in the second provided list."""
+    
     result = {}
+    
     for element in a:
         result[element]=1
         for element in b:
             if result.has_key(element):
                 del result[element]
+    
     return result.keys()
 
 
@@ -161,11 +192,17 @@ class MainWindow (object):
         return False # so that glib.idle_add won't repeat this callback forever.
     
     
+    def _get_renderer(self, tv_column):
+            return self.builder.get_object(tv_column).get_cell_renderers()[0]
+    
+    
     def get_value_from_liststore(self, column, cell, model, iter, user_data=None):
+        
         node = model.get(iter, 0)[0]
-        if cell == self.builder.get_object("search_tvcol_code").get_cell_renderers()[0]:
+        
+        if cell == self._get_renderer("search_tvcol_code"):
             cell.set_property('text', node.code)
-        elif cell == self.builder.get_object("search_tvcol_title").get_cell_renderers()[0]:
+        elif cell == self._get_renderer("search_tvcol_title"):
             cell.set_property('text', node.title)
         else:
             raise
@@ -210,7 +247,7 @@ class MainWindow (object):
             pass
 
         self.search_liststore.clear()
-        self.search_thread = SqliteSearch(search_string, self)
+        self.search_thread = NewSqliteSearch(search_string, self)
         self.search_thread.start()
         
         self.progress_container.show()
@@ -258,10 +295,6 @@ class CommandLineInterface(gobject.GObject):
     
     def __init__(self):
         
-        import gettext
-        _ = gettext.gettext
-        
-        
         # Make sure the standard output accepts non-ascii encoding even
         # if it's not printing to the terminal. This is necessary, in example,
         # when the output is redirected to a text file.
@@ -296,14 +329,20 @@ class CommandLineInterface(gobject.GObject):
     
     def run(self):
         
-        self.search_thread = SqliteSearch(self.search_string, self)
+        self.search_thread = NewSqliteSearch(self.search_string, self)
         self.search_thread.start()
-        
+        if __debug__: self.start_time = time.time()
+
         gtk.main()
     
     
     def set_progress(self, fraction=None):
         if fraction == 0.0:
+            import time
+            if __debug__:
+                self.end_time = time.time()
+                delta = self.end_time - self.start_time
+                print N_("[%.04f second]", "[%.04f seconds]", delta) % delta
             gtk.main_quit()
         else:
             return False
@@ -341,11 +380,11 @@ class SqliteSearch(SearchBackend):
         
         try:
             
-            cursor = conn.execute("SELECT count(code) FROM codes;")
+            cursor = conn.execute(u"SELECT count(code) FROM codes;")
             total = cursor.fetchone()[0] * 1.0
             fraction = 0.0
             
-            cursor = conn.execute("SELECT * FROM codes;")
+            cursor = conn.execute(u"SELECT * FROM codes;")
             
             # Yes, even Python can use a counter once in a while...
             i = 0
@@ -398,36 +437,55 @@ class NewSqliteSearch(SearchBackend):
             
             self.stop_thread.clear()
             
+            # Step 1: Retrieve the codes for the words searched
+            #
+            # Here we use a nested dictionary, because comparing dictionary
+            # keys is faster than comparing list items (because the dictionaries
+            # are hashed); and because we will have an arbitrary number of 
+            # tokens to be searched for, and a variable number of codes for 
+            # each token.
+            
             codes_dict = {}
             
-            or_count = len(self.token_list) - 1
-            statement = u"SELECT code_list from word_index WHERE word LIKE ?"
-            statement = statement + u" OR word LIKE ?" * or_count
-            statement = statement + ";"
-            
-            new_token_list = [u"%" + token + u"%" for token in self.token_list]
-            
-            cursor = conn.execute(statement, new_token_list)
-            
-            for row in cursor:
+            for token in self.token_list:
                 
                 if self.stop_thread.isSet(): raise StopTheThread
                 
-                code_list = cPickle.loads(str(row[0]))
+                codes_dict[token] = {}
                 
-                for item in code_list:
-                    # We don't want a code added to the list twice. Using a 
-                    # dictionary is faster and easier than checking if the list
-                    # has an item.
-                    codes_dict[item] = True
+                statement = u"""SELECT code_list from word_index 
+                                WHERE word LIKE ?;"""
+                cursor = conn.execute(statement, [u"%" + token + u"%"])
+                
+                for row in cursor:
+                    
+                    if self.stop_thread.isSet(): raise StopTheThread
+                    
+                    code_list = cPickle.loads(str(row[0]))
+                    
+                    for item in code_list:
+                        
+                        if self.stop_thread.isSet(): raise StopTheThread
+                        
+                        # We don't want a code added to the list twice. 
+                        # Using a dictionary is faster and easier than checking 
+                        # if the list has an item.
+                        codes_dict[token][item] = True
             
-            cursor.close()
+            # Step 2: Build a single code list.
+            #
+            # codes_dict.value() will return a list which items are 
+            # dictionaries, and the dictionaries pairs are something like 
+            # ("A09", True).
+            codes = common_keys(codes_dict.values())
             
             if self.stop_thread.isSet(): raise StopTheThread
             
             # Dictionary keys can't be sorted, only list items.
-            codes = codes_dict.keys()
             codes.sort()
+            
+            
+            # Step 3: Retrieve the nodes for each code
             
             or_count = len(codes) - 1
             statement = u"SELECT * FROM codes WHERE code == ?"
@@ -442,8 +500,6 @@ class NewSqliteSearch(SearchBackend):
                 
                 node = Node(row[0], row[1], row[2], row[3])
                 gobject.idle_add(self.frontend.add_node_to_search, node)
-            
-            cursor.close()
         
         except StopTheThread:
             pass
@@ -534,7 +590,5 @@ class SqliteDatabaseCreator (object):
 
 if __name__ == "__main__":
 
-    classix = MainWindow(ui_file_name="classix.ui")
-
-    gtk.main()
-    
+    classix = CommandLineInterface()
+    classix.run()
