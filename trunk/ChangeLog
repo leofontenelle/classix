@@ -1,3 +1,11 @@
+2009-10-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py:
+	- Made the search more specific, returning only entries matching every word.
+	- The indexed search backend is now the default one.
+	- Added search timer in the command line interface.
+	- Minor code cleanup.
+
 2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* src/main.py: Added a new backend with indexed search.
