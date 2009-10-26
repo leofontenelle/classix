@@ -1,5 +1,10 @@
 2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* src/main.py: Added progress bar to the NewSqliteSearch backend, which now
+	is the default one.
+
+2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* src/main.py: Allow search to return more codes than what a single SQLite
 	statement could handle. Fixes issue #13.
 
