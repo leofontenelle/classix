@@ -87,7 +87,7 @@ def parse_cid10n4a_txt(line):
                    '(?P<title>[^|]*)\|  '
                    '(?P<inclusion>(\| [^|]*)*)?'
                    '(\\ (?P<exclusion>[^|]*(\| [^|]*)*))?')
-    m = regex.match(line.decode('utf8'))
+    m = regex.match(line)
     code = m.group("code")
     title = m.group("title")
     inclusion = m.group("inclusion")
@@ -487,19 +487,20 @@ class NewSqliteSearch(SearchBackend):
             
             # Step 3: Retrieve the nodes for each code
             
-            or_count = len(codes) - 1
-            statement = u"SELECT * FROM codes WHERE code == ?"
-            statement = statement + " OR code == ?" * or_count
-            statement = statement + ";"
+            statement = u"SELECT * FROM codes WHERE code == ?;"
             
-            cursor = conn.execute(statement, codes)
-            
-            for row in cursor:
+            for code in codes:
                 
                 if self.stop_thread.isSet(): raise StopTheThread
                 
-                node = Node(row[0], row[1], row[2], row[3])
-                gobject.idle_add(self.frontend.add_node_to_search, node)
+                cursor = conn.execute(statement, [code])
+                
+                for row in cursor:
+                    
+                    if self.stop_thread.isSet(): raise StopTheThread
+                    
+                    node = Node(row[0], row[1], row[2], row[3])
+                    gobject.idle_add(self.frontend.add_node_to_search, node)
         
         except StopTheThread:
             pass
