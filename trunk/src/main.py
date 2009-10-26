@@ -487,6 +487,11 @@ class NewSqliteSearch(SearchBackend):
             
             # Step 3: Retrieve the nodes for each code
             
+            if not codes: raise StopTheThread
+            
+            codes_fraction = 1.0 / len(codes)
+            fraction = 0.0
+            
             statement = u"SELECT * FROM codes WHERE code == ?;"
             
             for code in codes:
@@ -501,6 +506,11 @@ class NewSqliteSearch(SearchBackend):
                     
                     node = Node(row[0], row[1], row[2], row[3])
                     gobject.idle_add(self.frontend.add_node_to_search, node)
+                
+                fraction = fraction + codes_fraction
+                if fraction > 1.0:
+                    fraction = 1.0
+                gobject.idle_add(self.frontend.set_progress, fraction)
         
         except StopTheThread:
             pass
