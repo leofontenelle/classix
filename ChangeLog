@@ -1,3 +1,11 @@
+2009-10-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Added src/main.py.
+	* po/POTFILES.skip: Removed because it because empty
+	* po/pt_BR.po: Updated the Brazilian Portuguese translation.
+	* src/main.py: Replaced N_ with gettext.ngettext itself so that 
+	intltool-update will understand it.
+
 2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* src/main.py: Added progress bar to the NewSqliteSearch backend, which now

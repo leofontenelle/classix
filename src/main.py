@@ -31,7 +31,8 @@ if __debug__: import time
 
 import gettext
 _ = gettext.gettext
-N_ = gettext.ngettext
+## intltool-tool won't understand this:
+# N_ = gettext.ngettext
 
 
 gtk.gdk.threads_init()
@@ -342,7 +343,8 @@ class CommandLineInterface(gobject.GObject):
             if __debug__:
                 self.end_time = time.time()
                 delta = self.end_time - self.start_time
-                print N_("[%.04f second]", "[%.04f seconds]", delta) % delta
+                print gettext.ngettext(
+                    "[%.04f second]", "[%.04f seconds]", delta) % delta
             gtk.main_quit()
         else:
             return False
