@@ -1,5 +1,9 @@
 2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* po/pt_BR.po: Updated the Brazilian Portuguese translation.
+
+2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* src/main.py: Added an option to show the duration of the search.
 
 2009-10-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
