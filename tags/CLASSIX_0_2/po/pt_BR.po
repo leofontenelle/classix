@@ -1,0 +1,74 @@
+# Brazilian Portuguese translation of Classix
+# Copyright (C) 2009 Leonardo Ferreira Fontenelle.
+# This file is distributed under the same license as the classix package.
+# Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: classix 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-31 09:39-0200\n"
+"PO-Revision-Date: 2009-09-28 21:21-0300\n"
+"Last-Translator: Leonardo Ferreira Fontenelle <leonardof@gnome.org>\n"
+"Language-Team: Brazilian Portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../data/classix.desktop.in.h:1 ../data/classix.ui.h:1
+msgid "Classix"
+msgstr "Classix"
+
+#: ../data/classix.desktop.in.h:2
+msgid "Search ICD-10 codes"
+msgstr "Pesquise códigos CID-10"
+
+#. Translators: Leave '%prog' untranslated; and keep single or double
+#. quotes around the translation of 'text to be searched'.
+#: ../src/main.py:308
+msgid ""
+"usage: %prog [ OPTIONS ] \"text to be searched\" - Search for ICD-10 codes"
+msgstr ""
+"uso: %prog [ OPÇÕES ] \"texto a ser pesquisado\" ] - Pesquise códigos CID-10"
+
+#: ../src/main.py:310
+msgid ""
+"If you want to open the graphical user interface, just run \"classix\". If "
+"you want the results to be printed to the standard output (e.g. the "
+"terminal), specify the text to be searched as an argument between quotes."
+msgstr ""
+"Se você quiser abrir a interface gráfica de usuário, simplesmente execute "
+"\"classix\". Se você quiser que os resultados sejam impressos na saída "
+"padrão (p.ex. o terminal), especifique o texto a ser pesquisado como um "
+"argumento entre aspas."
+
+#: ../src/main.py:317
+msgid "shows how long it took to search the text"
+msgstr "mostra quanto tempo a pesquisa demorou"
+
+#: ../src/main.py:355
+#, python-format
+msgid "[%.04f second]"
+msgid_plural "[%.04f seconds]"
+msgstr[0] "[%.04f segundo]"
+msgstr[1] "[%.04f segundos]"
+
+#: ../data/classix.ui.h:2
+msgid "Code"
+msgstr "Código"
+
+#: ../data/classix.ui.h:3
+msgid "Title"
+msgstr "Título"
+
+#~ msgid ""
+#~ "Run the application without arguments to open the graphical user "
+#~ "interface. Specify the text to be search as a command line argument if "
+#~ "you want the results to be printed to the standard output (usually the "
+#~ "terminal)."
+#~ msgstr ""
+#~ "Execute o aplicativo sem argumentos para abrir a interface gráfica de "
+#~ "usuário. Especifique o texto a ser pesquisado como um argumento de linha "
+#~ "de comando se você quiser que os resultados sejam impressos na saída "
+#~ "padrão (geralmente o terminal)."
