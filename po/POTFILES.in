@@ -1,2 +1,4 @@
 data/classix.desktop.in
+src/main.py
 [type: gettext/glade]data/classix.ui
+

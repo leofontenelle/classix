@@ -1,3 +1,42 @@
+2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/pt_BR.po: Updated the Brazilian Portuguese translation.
+
+2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Added an option to show the duration of the search.
+
+2009-10-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Added src/main.py.
+	* po/POTFILES.skip: Removed because it because empty
+	* po/pt_BR.po: Updated the Brazilian Portuguese translation.
+	* src/main.py: Replaced N_ with gettext.ngettext itself so that 
+	intltool-update will understand it.
+
+2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Added progress bar to the NewSqliteSearch backend, which now
+	is the default one.
+
+2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Allow search to return more codes than what a single SQLite
+	statement could handle. Fixes issue #13.
+
+2009-10-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py:
+	- Made the search more specific, returning only entries matching every word.
+	- The indexed search backend is now the default one.
+	- Added search timer in the command line interface.
+	- Minor code cleanup.
+
+2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Added a new backend with indexed search.
+	* data/classix.db: Added an index to the database.
+
 2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* src/main.py: (Hopefully) fixed threading in the GUI.
