@@ -24,10 +24,9 @@ import os
 import re
 import sqlite3
 import sys
+import time
 import threading
 from . import config
-
-if __debug__: import time
 
 import gettext
 _ = gettext.gettext
@@ -306,14 +305,23 @@ class CommandLineInterface(gobject.GObject):
         
         # Translators: Leave '%prog' untranslated; and keep single or double
         # quotes around the translation of 'text to be searched'.
-        usage = _("usage: %prog [ OPTIONS | \"text to be searched\" ] "
+        usage = _("usage: %prog [ OPTIONS ] \"text to be searched\" "
                   "- Search for ICD-10 codes")
-        parser = OptionParser(usage=usage, version=config.VERSION,
-            epilog=_("Run the application without arguments to open the "
-                    "graphical user interface. Specify the text to be search "
-                    "as a command line argument if you want the results to be "
-                    "printed to the standard output (usually the terminal)."))
+        epilog=_("If you want to open the graphical user interface, just run "
+            "\"classix\". If you want the results to be printed to the "
+            "standard output (e.g. the terminal), specify the text to be "
+            "searched as an argument between quotes.")
+        parser = OptionParser(version=config.VERSION, epilog=epilog)
+        parser.set_usage(usage)
+        parser.add_option("-t", "--time", action="store_true", dest="time",
+            help=_("shows how long it took to search the text"))
         (options, args) = parser.parse_args()
+        self.time = options.time
+        
+        if not args:
+            # e.g. the user passed "-t" without any text.
+            parser.print_usage()
+            sys.exit(1)
         
         # The command line parser is used for:
         # 1. get -h, --help flags, which are implicit; and
@@ -332,7 +340,7 @@ class CommandLineInterface(gobject.GObject):
         
         self.search_thread = NewSqliteSearch(self.search_string, self)
         self.search_thread.start()
-        if __debug__: self.start_time = time.time()
+        if self.time: self.start_time = time.time()
 
         gtk.main()
     
@@ -340,7 +348,7 @@ class CommandLineInterface(gobject.GObject):
     def set_progress(self, fraction=None):
         if fraction == 0.0:
             import time
-            if __debug__:
+            if self.time:
                 self.end_time = time.time()
                 delta = self.end_time - self.start_time
                 print gettext.ngettext(
