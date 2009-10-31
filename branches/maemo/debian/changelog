@@ -1,3 +1,9 @@
+classix (0.2-maemo1) diablo; urgency=low
+
+  * Initial release
+
+ -- Leonardo Ferreira Fontenelle <leonardof@gnome.org>  Sat, 31 Oct 2009 12:58:57 -0200
+
 classix (0.1-maemo1) diablo; urgency=low
 
   * Initial release
