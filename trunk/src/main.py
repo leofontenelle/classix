@@ -220,7 +220,7 @@ class MainWindow (object):
         gtk.main_quit()
     
     
-    def on_search_entry_activated(self, widget, data=None):
+    def on_search_entry_activate(self, widget, data=None):
         
         button = self.builder.get_object("search_button")
         button.emit("clicked")
@@ -284,6 +284,11 @@ class HildonMainWindow(MainWindow):
         
         MainWindow.__init__(self, ui_file_name)
         self.keysym_to_fullscreen = gtk.keysyms.F6
+        
+        toolbar = self.builder.get_object("search_toolbar")
+        vbox = self.builder.get_object("vbox1")
+        vbox.set_child_packing(child=toolbar, expand=False, fill=True, 
+            padding=0, pack_type = gtk.PACK_END)
 
 
 

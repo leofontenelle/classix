@@ -1,6 +1,13 @@
 2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* data/classix.ui:
+	- Added a label before the search entry;
+	- Changed the search button to OK stock button without label.
+	* src/main.py: Move the toolbar to the bottom in the Hildon UI.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui:
 	* src/main.py:
 	- Removed the unused "Stop" button.
 	- Moved the search entry and button to a toolbar.
@@ -27,18 +34,19 @@
 
 2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
-	* src/main.py: Added progress bar to the NewSqliteSearch backend, which now
-	is the default one.
+	* src/main.py: Added progress bar to the NewSqliteSearch backend, which 
+	now is the default one.
 
 2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
-	* src/main.py: Allow search to return more codes than what a single SQLite
-	statement could handle. Fixes issue #13.
+	* src/main.py: Allow search to return more codes than what a single 
+	SQLite statement could handle. Fixes issue #13.
 
 2009-10-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* src/main.py:
-	- Made the search more specific, returning only entries matching every word.
+	- Made the search more specific, returning only entries matching every 
+	  word.
 	- The indexed search backend is now the default one.
 	- Added search timer in the command line interface.
 	- Minor code cleanup.
@@ -177,37 +185,37 @@
 
 2009-09-18  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: moved to classix.py.
+	* classix: moved to classix.py.
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Added SQLite search backend. It is already the default, with
-        a great performance improvement: 2.8 times quicker when running on an
-        N800's SD card. There is a regression, though: the progress bar is not
-        displayed.
-        * classix.db: Added
-        * classix.gz: Removed. See README for instructions on how to get one.
-        * README: Updated with information on how to create a new database if 
-        necessary. Added information on why the name "Classix".
+	* classix: Added SQLite search backend. It is already the default, with
+	a great performance improvement: 2.8 times quicker when running on an
+	N800's SD card. There is a regression, though: the progress bar is not
+	displayed.
+	* classix.db: Added
+	* classix.gz: Removed. See README for instructions on how to get one.
+	* README: Updated with information on how to create a new database if 
+	necessary. Added information on why the name "Classix".
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Removed debugging code.
+	* classix: Removed debugging code.
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Isolated the code that parses lines from the cid10n4a.txt
-        file, for future reuse in an SQLite importer.
+	* classix: Isolated the code that parses lines from the cid10n4a.txt
+	file, for future reuse in an SQLite importer.
 
 2009-08-29  Luiz Armesto <luiz.armesto@gmail.com>
 
-        * classix{,.ui}: Added progressbar and stop button.
+	* classix{,.ui}: Added progressbar and stop button.
 
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix: Fixed case insensitive search (thanks to Luiz Fernando
-        Armesto). Closes issue #1.
+	* classix: Fixed case insensitive search (thanks to Luiz Fernando
+	Armesto). Closes issue #1.
 
 2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-        * classix{,.gz,.ui}, COPYING, README: Initial commit.
+	* classix{,.gz,.ui}, COPYING, README: Initial commit.
