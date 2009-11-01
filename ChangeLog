@@ -1,5 +1,9 @@
 2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* configure.ac: Post release version bump to 0.3.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* data/classix.ui:
 	- Added a label before the search entry;
 	- Changed the search button to OK stock button without label.
