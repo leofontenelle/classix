@@ -1,3 +1,10 @@
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui:
+	* src/main.py:
+	- Removed the unused "Stop" button.
+	- Moved the search entry and button to a toolbar.
+
 2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* NEWS: Added information for Classix 0.2.

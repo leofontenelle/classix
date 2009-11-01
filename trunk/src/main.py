@@ -181,10 +181,8 @@ class MainWindow (object):
         self.window_in_fullscreen = False
         self.keysym_to_fullscreen = gtk.keysyms.F11
 
-        self.progress_container = self.builder.get_object("hbox2")
-        self.progress_container.hide()
-
         self.progressbar = self.builder.get_object("progressbar")
+        self.progressbar.hide()
     
     
     def add_node_to_search(self, node):
@@ -222,6 +220,12 @@ class MainWindow (object):
         gtk.main_quit()
     
     
+    def on_search_entry_activated(self, widget, data=None):
+        
+        button = self.builder.get_object("search_button")
+        button.emit("clicked")
+    
+    
     def on_search_button_clicked(self, widget, data=None):
         entry = self.builder.get_object("search_entry")
         # Strings in GTK+ are encoded in UTF-8, but the backend uses Unicode.
@@ -250,15 +254,7 @@ class MainWindow (object):
         self.search_thread = NewSqliteSearch(search_string, self)
         self.search_thread.start()
         
-        self.progress_container.show()
-    
-    
-    def on_stop_button_clicked(self, widget, data=None):
-        try:
-            self.search_thread.stop()
-        except AttributeError:
-            pass
-        self.set_progress(0.0)
+        self.progressbar.show()
     
     
     def on_window_state_change(self, widget, event, *args):
@@ -277,7 +273,7 @@ class MainWindow (object):
         
         # Hide the progressbar if the fraction is set to zero
         if fraction == 0.0:
-            self.progress_container.hide()
+            self.progressbar.hide()
         return False # so that glib.idle_add won't repeat this callback forever.
 
 
