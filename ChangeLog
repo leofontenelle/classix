@@ -1,5 +1,10 @@
 2009-11-02  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* src/main.py: Made the search insensitive to diacritics.
+	* data/classix.db: Updated the index accordingly.
+
+2009-11-02  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* src/main.py: Removed old SqliteSearch backend and renamed 
 	NewSqliteSearch to SqliteSearch.
 
