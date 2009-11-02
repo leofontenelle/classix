@@ -26,6 +26,7 @@ import sqlite3
 import sys
 import time
 import threading
+import unicodedata
 from . import config
 
 import gettext
@@ -34,7 +35,13 @@ _ = gettext.gettext
 # N_ = gettext.ngettext
 
 
+
 gtk.gdk.threads_init()
+
+
+
+combining_chars_re = \
+    re.compile(u'[\u0300-\u036f\u1dc0-\u1dff\u20d0-\u20ff\ufe20-\ufe2f]',re.U)
 
 
 
@@ -110,6 +117,19 @@ def parse_cid10n4a_txt(line):
     node = Node(code, title, inclusion, exclusion)
     
     return node
+
+
+
+def remove_diacritics(unistr):
+    """Receives an unicode string and returns it without diacritics."""
+    
+    return combining_chars_re.sub(u'', unicodedata.normalize('NFD', unistr))
+    
+    """Alternative implementation, 7 times slower:
+    
+    nkfd_form = unicodedata.normalize('NFKD', unistr)
+    return u"".join([c for c in nkfd_form if not unicodedata.combining(c)])
+    """
 
 
 
@@ -381,6 +401,7 @@ class SqliteSearch(SearchBackend):
     def __init__(self, search_string, frontend):
         
         SearchBackend.__init__(self, search_string, frontend)
+        self.search_string = remove_diacritics(self.search_string)
         
         self.database_filename = os.path.join(config.pkgdatadir, "classix.db")
         
@@ -532,7 +553,7 @@ class SqliteDatabaseCreator (object):
                     words = re.compile(r"\W+", re.U).split(string)
                     for raw_word in words:
                         if raw_word == u"": continue
-                        word = raw_word.lower()
+                        word = remove_diacritics(raw_word.lower())
                         try:
                             index[word][node.code] = True
                         except KeyError:
@@ -559,10 +580,3 @@ class SqliteDatabaseCreator (object):
              self.input.close()
              conn.commit()
              conn.close()
-
-
-
-if __name__ == "__main__":
-
-    classix = CommandLineInterface()
-    classix.run()
