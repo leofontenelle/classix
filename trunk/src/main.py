@@ -251,7 +251,7 @@ class MainWindow (object):
             pass
 
         self.search_liststore.clear()
-        self.search_thread = NewSqliteSearch(search_string, self)
+        self.search_thread = SqliteSearch(search_string, self)
         self.search_thread.start()
         
         self.progressbar.show()
@@ -339,7 +339,7 @@ class CommandLineInterface(gobject.GObject):
     
     def run(self):
         
-        self.search_thread = NewSqliteSearch(self.search_string, self)
+        self.search_thread = SqliteSearch(self.search_string, self)
         self.search_thread.start()
         if self.time: self.start_time = time.time()
 
@@ -377,54 +377,6 @@ class SearchBackend(threading.Thread):
 
 
 class SqliteSearch(SearchBackend):
-    
-    def __init__(self, search_string, frontend):
-        
-        self.database_filename = os.path.join(config.pkgdatadir, "classix.db")
-        SearchBackend.__init__(self, search_string, frontend)
-    
-    
-    def run(self):
-        
-        self.stop_thread.clear()
-        conn = sqlite3.connect(self.database_filename)
-        
-        try:
-            
-            cursor = conn.execute(u"SELECT count(code) FROM codes;")
-            total = cursor.fetchone()[0] * 1.0
-            fraction = 0.0
-            
-            cursor = conn.execute(u"SELECT * FROM codes;")
-            
-            # Yes, even Python can use a counter once in a while...
-            i = 0
-            
-            for row in cursor:
-                if self.stop_thread.isSet():
-                    break
-                
-                i = i + 1
-                node = Node(row[0], row[1], row[2], row[3])
-
-                # Update the progressbar
-                new_fraction = round(i / total, 2)
-                if new_fraction > fraction:
-                    fraction = new_fraction
-                    gobject.idle_add(self.frontend.set_progress, fraction)
-
-                if self.search_string in node.code.lower() or \
-                   self.search_string in node.title.lower() or \
-                   self.search_string in node.inclusion.lower():
-
-                    gobject.idle_add(self.frontend.add_node_to_search, node)
-        finally:
-            conn.close()
-            gobject.idle_add(self.frontend.set_progress, 0.0)
-
-
-
-class NewSqliteSearch(SearchBackend):
     
     def __init__(self, search_string, frontend):
         
