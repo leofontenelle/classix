@@ -1,5 +1,9 @@
 2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* po/POTFILES.in: Fixed source code path.
+
+2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* Makefile.am:
 	* bin/Makefile.am:
 	* classix.in:
