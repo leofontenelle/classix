@@ -27,7 +27,8 @@ AM_CONDITIONAL([MAEMO], [test "x$use_maemo" = "xyes"])
 
 AC_CONFIG_FILES([
 	Makefile
+	bin/Makefile
+	classix/Makefile
 	data/Makefile
-	po/Makefile.in
-	src/Makefile])
+	po/Makefile.in])
 AC_OUTPUT
