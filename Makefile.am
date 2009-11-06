@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ## AUTOMAKE_OPTIONS = subdir-objects
-SUBDIRS = data po src
+SUBDIRS = bin classix data po
 
 
 bin_SCRIPTS = classix

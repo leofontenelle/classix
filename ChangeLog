@@ -1,3 +1,15 @@
+2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am:
+	* bin/Makefile.am:
+	* classix.in:
+	* configure.ac:
+	* src/Makefile.am:
+	* src/config.py.in:
+	* src/main.py:
+	Moved classix.in to directory "bin" and renamed directory "src" to
+	"classix".
+
 2009-11-02  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* src/main.py: Made the search insensitive to diacritics.
