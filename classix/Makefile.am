@@ -8,7 +8,16 @@ do_subst = sed \
 	-e s![@]PACKAGE[@]!$(PACKAGE)!g		\
 	-e s![@]VERSION[@]!$(VERSION)!g		
 	
-pkgpython_PYTHON = __init__.py main.py config.py
+pkgpython_PYTHON = \
+	__init__.py \
+	baseui.py \
+	commandlineui.py \
+	common.py \
+	config.py \
+	databasecreator.py \
+	hildonui.py \
+	gtkui.py \
+	searchbackend.py
 
 CLEANFILES = config.py
 EXTRA_DIST = config.py.in

@@ -1,5 +1,21 @@
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* bin/classix.in:
+	* classix/Makefile.am:
+	* classix/baseui.py:
+	* classix/commandlineui.py:
+	* classix/common.py:
+	* classix/databasecreator.py:
+	* classix/gtkui.py:
+	* classix/hildonui.py:
+	* classix/main.py:
+	* classix/searchbackend.py:
+	Split main.py in a handful of files.
+	Created a superclass for the user interface, and removed the superclass for
+	the search backend.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* Makefile.am: Removed obsolete code.
 	* configure.ac: Fixed location of AC_CONFIG_SRCDIR.
 
