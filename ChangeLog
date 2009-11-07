@@ -1,3 +1,8 @@
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Removed obsolete code.
+	* configure.ac: Fixed location of AC_CONFIG_SRCDIR.
+
 2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* po/POTFILES.in: Fixed source code path.
