@@ -85,6 +85,7 @@
               <object class="GtkTreeView" id="search_treeview">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="headers_visible">True</property>
                 <property name="resize_mode">queue</property>
                 <property name="rules_hint">True</property>
               </object>
