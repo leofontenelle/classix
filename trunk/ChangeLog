@@ -1,5 +1,9 @@
 2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* data/classix.ui: Reintroduced explicit visible headers in the tree view.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* classix/baseui.py:
 	* classix/commandlineui.py:
 	* classix/gtkui.py:
