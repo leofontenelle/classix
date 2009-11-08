@@ -1,5 +1,11 @@
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* classix/Makefile.am: Added classix/bagofwordscreator.py
+	* classix/bagofwordscreator.py: Isolated code splitting strings in lists.
+	* classix/searchbackend.py: Switched to use bagofwordscreator.py.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* po/POTFILES.in: Fixed localization after the split of the source code.
 
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>

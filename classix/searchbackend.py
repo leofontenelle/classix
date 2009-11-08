@@ -26,6 +26,7 @@ import sqlite3
 import threading
 
 from classix import config
+from classix.bagofwordscreator import BagOfWordsCreator
 from classix.common import Node
 from classix.common import common_keys
 from classix.common import difference_dict
@@ -43,9 +44,8 @@ class SearchBackend(threading.Thread):
         self.frontend = frontend
         self.database_filename = os.path.join(config.pkgdatadir, "classix.db")
         
-        temp_search_string = remove_diacritics(search_string.lower())
-        token_list = re.compile(r"\W+", re.U).split(temp_search_string)
-        self.token_list = difference_dict(token_list, [u""])
+        self.splitter = BagOfWordsCreator()
+        self.token_list = self.splitter.get_bag_of_words(search_string)
     
     
     def run(self):
