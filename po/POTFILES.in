@@ -1,4 +1,4 @@
 data/classix.desktop.in
-classix/main.py
+classix/commandlineui.py
 [type: gettext/glade]data/classix.ui
 
