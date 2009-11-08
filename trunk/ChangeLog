@@ -1,5 +1,9 @@
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* po/POTFILES.in: Fixed localization after the split of the source code.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* bin/classix.in:
 	* classix/Makefile.am:
 	* classix/baseui.py:
