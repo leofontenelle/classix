@@ -28,6 +28,9 @@ from classix.searchbackend import SearchBackend
 class MainWindow (ClassixUI):
     
     def __init__(self, ui_file_name):
+        
+        ClassixUI.__init__(self)
+        
         self.builder = gtk.Builder()
         self.builder.add_from_file(ui_file_name)
         self.search_liststore = gtk.ListStore(object)
@@ -88,7 +91,7 @@ class MainWindow (ClassixUI):
     
     
     def on_main_window_destroy(self, widget, data=None):
-        gtk.main_quit()
+        self.quit()
     
     
     def on_search_entry_activate(self, widget, data=None):
@@ -102,28 +105,14 @@ class MainWindow (ClassixUI):
         # Strings in GTK+ are encoded in UTF-8, but the backend uses Unicode.
         search_string = entry.get_text().decode("utf-8")
         
-        # Don't stop a search or start a new one if there's no search string.
-        if not search_string:
-            return
+        search_thread = self.backend.get_search_thread(search_string)
         
-        # Don't stop a search or start a new one if the current search is the
-        # same as the previous search. 
-        try:
-            if search_string == self.search_thread.search_string:
-                return
-        except AttributeError:
-            # There's no search going on.
-            pass
-            
-        try:
-            self.search_thread.stop()
-        except AttributeError:
-            # There's no search going on.
-            pass
-
-        self.search_liststore.clear()
-        self.search_thread = SearchBackend(search_string, self)
-        self.search_thread.start()
+        # If the backend finds a good reason for not starting this search, e.g.
+        # because the last search used the exact same terms, then it will return
+        # None instead of a Thread object.
+        if search_thread:
+            self.search_liststore.clear()
+            search_thread.start()
         
         self.progressbar.show()
     

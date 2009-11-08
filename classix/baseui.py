@@ -19,15 +19,21 @@
 
 
 import gobject
+import gtk
 
+from classix.searchbackend import SearchBackend
 
 
 class ClassixUI(gobject.GObject):
     def __init__(self, ui_file_name=None):
-        raise NotImplemented
+        self.backend = SearchBackend(frontend=self)
     
     def add_node_to_search(self, node):
         raise NotImplemented
+    
+    def quit(self):
+        self.backend.quit()
+        gtk.main_quit()
     
     def run(self):
         raise NotImplemented
