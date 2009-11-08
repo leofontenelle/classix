@@ -17,11 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
+import codecs
 import gtk
+import sys
 
 from classix.baseui import ClassixUI
 from classix.searchbackend import SearchBackend
+from gettext import gettext as _
 
 
 
@@ -39,19 +41,22 @@ class MainWindow (ClassixUI):
         tv.set_model(self.search_liststore)
         
         code_col = self.builder.get_object("search_tvcol_code")
-        code_cell = gtk.CellRendererText()
-        code_col.pack_start(code_cell)
-        code_col.set_cell_data_func(code_cell, self.get_value_from_liststore)
+        self.code_cell = gtk.CellRendererText()
+        code_col.pack_start(self.code_cell)
+        code_col.set_cell_data_func(self.code_cell,
+            self.get_value_from_liststore)
         tv.append_column(code_col)
         
         title_col = self.builder.get_object("search_tvcol_title")
-        title_cell = gtk.CellRendererText()
-        title_col.pack_start(title_cell)
-        title_col.set_cell_data_func(title_cell, self.get_value_from_liststore)
+        self.title_cell = gtk.CellRendererText()
+        title_col.pack_start(self.title_cell)
+        title_col.set_cell_data_func(self.title_cell,
+            self.get_value_from_liststore)
         tv.append_column(title_col)
         
         self.builder.connect_signals(self)
-        self.builder.get_object("main_window").show_all()
+        self.window = self.builder.get_object("main_window")
+        self.window.show_all()
         self.window_in_fullscreen = False
         self.keysym_to_fullscreen = gtk.keysyms.F11
         
@@ -64,17 +69,23 @@ class MainWindow (ClassixUI):
         return False # so that glib.idle_add won't repeat this callback forever.
     
     
-    def _get_renderer(self, tv_column):
-            return self.builder.get_object(tv_column).get_cell_renderers()[0]
+    def get_save_as_dialog(self, suggested_name=None):
+        
+        dialog = self.builder.get_object("save_as_dialog")
+        if suggested_name:
+            dialog.set_current_name(suggested_name)
+        
+        return dialog
     
     
-    def get_value_from_liststore(self, column, cell, model, iter, user_data=None):
+    def get_value_from_liststore(self, column, cell, model, iter, 
+                                    user_data=None):
         
         node = model.get(iter, 0)[0]
         
-        if cell == self._get_renderer("search_tvcol_code"):
+        if cell == self.code_cell:
             cell.set_property('text', node.code)
-        elif cell == self._get_renderer("search_tvcol_title"):
+        elif cell == self.title_cell:
             cell.set_property('text', node.title)
         else:
             raise
@@ -85,13 +96,66 @@ class MainWindow (ClassixUI):
             # The "Full screen" hardware key has been pressed
             window = self.builder.get_object("main_window")
             if self.window_in_fullscreen:
-                window.unfullscreen ()
+                window.unfullscreen()
             else:
-                window.fullscreen ()
+                window.fullscreen()
     
     
     def on_main_window_destroy(self, widget, data=None):
         self.quit()
+    
+    
+    def on_save_as_button_activate(self, widget, data=None):
+        
+        suggested_name = self.backend.search_string + ".txt"
+        chooser = self.get_save_as_dialog(suggested_name=suggested_name)
+        
+        txt_filter = gtk.FileFilter()
+        txt_filter.set_name(_("Text files (*.txt)"))
+        txt_filter.add_mime_type("text/plain")
+        txt_filter.add_pattern("*.txt")
+        chooser.add_filter(txt_filter)
+        
+        all_filter = gtk.FileFilter()
+        all_filter.set_name(_("All files (*.*)"))
+        all_filter.add_pattern("*")
+        chooser.add_filter(all_filter)
+
+        response = chooser.run()
+        if response == gtk.RESPONSE_OK:
+            filename = chooser.get_filename()
+            chooser.destroy()
+        else:
+            chooser.destroy()
+            return
+        
+        try:
+            encoding = sys.getdefaultencoding()
+            f = codecs.open(filename, mode="wb", encoding=encoding,
+                             errors='ignore')
+            for row in self.search_liststore:
+                node = row[0]
+                string = u"%(code)s\t%(title)s\n" % (
+                    {"code": node.code, "title": node.title})
+                f.write(string)
+        except IOError as (errno, strerror):
+            dialog = gtk.Dialog()
+            dialog.set_title(_("Error Saving File"))
+            dialog.set_transient_for(self.window)
+            dialog.set_flags(gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
+            dialog.add_butoon(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT)
+            
+            label = gtk.Label(_("It was not possible to save the search "
+                "results to the text file. The reason was this input/output "
+                "error: %(error_number)d - %(error_description)s") %
+                    {"error_number":errno, "error_description": errstr}
+                 )
+            dialog.vbox.pack_start(label)
+            
+            dialog.run()
+            dialog.destroy()
+        finally:
+            f.close()
     
     
     def on_search_entry_activate(self, widget, data=None):
@@ -115,6 +179,10 @@ class MainWindow (ClassixUI):
             search_thread.start()
         
         self.progressbar.show()
+        
+        # This button should only be sensitive after a search is made
+        save_as_button = self.builder.get_object("save_as_button")
+        save_as_button.set_sensitive(True)
     
     
     def on_window_state_change(self, widget, event, *args):

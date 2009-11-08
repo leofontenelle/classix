@@ -1,5 +1,13 @@
 2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* classix/gtkui.py:
+	* data/classix.ui:
+	- Added a "Save As" feature, saving the results from the last search to a
+	  text file. Addresses issue #16.
+	- Minor code cleanup in the treeview updating code.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* data/classix.ui: Reintroduced explicit visible headers in the tree view.
 
 2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
