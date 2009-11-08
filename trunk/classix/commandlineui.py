@@ -36,6 +36,8 @@ class CommandLineInterface(ClassixUI):
     
     def __init__(self):
         
+        ClassixUI.__init__(self)
+        
         # Make sure the standard output accepts non-ascii encoding even
         # if it's not printing to the terminal. This is necessary, in example,
         # when the output is redirected to a text file.
@@ -77,9 +79,10 @@ class CommandLineInterface(ClassixUI):
     
     def run(self):
         
-        self.search_thread = SearchBackend(self.search_string, self)
-        self.search_thread.start()
+        search_thread = self.backend.get_search_thread(self.search_string)
         if self.time: self.start_time = time.time()
+        search_thread.start()
+        
         
         gtk.main()
     
@@ -92,6 +95,6 @@ class CommandLineInterface(ClassixUI):
                 delta = self.end_time - self.start_time
                 print ngettext(
                     "[%.04f second]", "[%.04f seconds]", delta) % delta
-            gtk.main_quit()
+            self.quit()
         else:
             return False # so that glib.idle_add won't repeat this callback forever.

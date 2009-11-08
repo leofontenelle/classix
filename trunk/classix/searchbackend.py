@@ -34,28 +34,57 @@ from classix.common import remove_diacritics
 
 
 
-class SearchBackend(threading.Thread):
+class StopTheThread(Exception):
+    """Exception used to stop a thread"""
+    pass
+
+
+
+class SearchBackend(object):
     
-    def __init__(self, search_string, frontend):
+    def __init__(self, frontend):
         
-        threading.Thread.__init__(self)
         self.stop_thread = threading.Event()
         
         self.frontend = frontend
         self.database_filename = os.path.join(config.pkgdatadir, "classix.db")
+        if not os.path.exists(self.database_filename): raise
         
         self.splitter = BagOfWordsCreator()
+        
+    
+    
+    def get_search_thread(self, search_string):
+        
+        # Don't stop a search or start a new one if there's no search string.
+        if not search_string:
+            return False
+        
+        # Don't stop a search or start a new one if the current search is the
+        # same as the previous search. 
+        try:
+            if search_string == self.search_string:
+                return False
+        except AttributeError:
+            # There's no search going on.
+            pass
+        
+        try:
+            self.search_thread.stop()
+        except AttributeError:
+            # There's no search going on.
+            pass
+        
+        self.search_string = search_string
         self.token_list = self.splitter.get_bag_of_words(search_string)
-    
-    
-    def run(self):
+        
+        return threading.Thread(target=self.search)
+        
+        
+    def search (self):
         
         conn = sqlite3.connect(self.database_filename)
         
-        class StopTheThread(Exception):
-            """Exception used to stop a thread"""
-            pass
-            
         try:
             
             self.stop_thread.clear()
@@ -140,5 +169,11 @@ class SearchBackend(threading.Thread):
         
         finally:
             
-            conn.close()
             gobject.idle_add(self.frontend.set_progress, 0.0)
+            conn.close()
+    
+    
+    def quit(self):
+        
+        # If there's a search going on, it will stop.
+        self.stop_thread = True

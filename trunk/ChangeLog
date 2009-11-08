@@ -1,3 +1,15 @@
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/baseui.py:
+	* classix/commandlineui.py:
+	* classix/gtkui.py:
+	* classix/searchbackend.py:
+	Now the backend is instantiated at the time of the frontend instantiating. 
+	Combined with checking for the existence of the database during the backend 
+	instantiating, this makes the first search 2,5 to 3 time faster. Besides, 
+	the logic of choosing whether to actually perform the search was moved from 
+	the frontend to the backend.
+
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* classix/Makefile.am: Added classix/bagofwordscreator.py
