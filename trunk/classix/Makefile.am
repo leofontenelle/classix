@@ -10,6 +10,7 @@ do_subst = sed \
 	
 pkgpython_PYTHON = \
 	__init__.py \
+	bagofwordscreator.py \
 	baseui.py \
 	commandlineui.py \
 	common.py \
