@@ -1,3 +1,7 @@
+2009-11-09  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Added missing file, data/gtkui.py.
+
 2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* classix/gtkui.py:
