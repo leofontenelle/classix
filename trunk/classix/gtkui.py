@@ -138,7 +138,7 @@ class MainWindow (ClassixUI):
                 string = u"%(code)s\t%(title)s\n" % (
                     {"code": node.code, "title": node.title})
                 f.write(string)
-        except IOError as (errno, strerror):
+        except IOError, (errno, strerror):
             dialog = gtk.Dialog()
             dialog.set_title(_("Error Saving File"))
             dialog.set_transient_for(self.window)
@@ -148,7 +148,7 @@ class MainWindow (ClassixUI):
             label = gtk.Label(_("It was not possible to save the search "
                 "results to the text file. The reason was this input/output "
                 "error: %(error_number)d - %(error_description)s") %
-                    {"error_number":errno, "error_description": errstr}
+                    {"error_number":errno, "error_description": strerror}
                  )
             dialog.vbox.pack_start(label)
             
