@@ -1,7 +1,14 @@
+2009-11-16  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py:
+	- Show the progress bar and set the "save as" button as sensitive only 
+	  if a search is actually performed 
+	- Trivial code reorganization and typo fix.
+
 2009-11-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
-	* classix/gtkui.py: Fixed compatibility with Python 2.5 in Maemo and also
-	a misspelled variable name.
+	* classix/gtkui.py: Fixed compatibility with Python 2.5 in Maemo and 
+	also a misspelled variable name.
 
 2009-11-09  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
@@ -11,8 +18,8 @@
 
 	* classix/gtkui.py:
 	* data/classix.ui:
-	- Added a "Save As" feature, saving the results from the last search to a
-	  text file. Addresses issue #16.
+	- Added a "Save As" feature, saving the results from the last search to 
+	  a text file. Addresses issue #16.
 	- Minor code cleanup in the treeview updating code.
 
 2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
@@ -25,16 +32,17 @@
 	* classix/commandlineui.py:
 	* classix/gtkui.py:
 	* classix/searchbackend.py:
-	Now the backend is instantiated at the time of the frontend instantiating. 
-	Combined with checking for the existence of the database during the backend 
-	instantiating, this makes the first search 2,5 to 3 time faster. Besides, 
-	the logic of choosing whether to actually perform the search was moved from 
-	the frontend to the backend.
+	Now the backend is instantiated at the time of the frontend 
+	instantiating. Combined with checking for the existence of the database 
+	during the backend instantiating, this makes the first search 2,5 to 3 
+	times faster. Besides, the logic of choosing whether to actually perform
+	the search was moved from the frontend to the backend.
 
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* classix/Makefile.am: Added classix/bagofwordscreator.py
-	* classix/bagofwordscreator.py: Isolated code splitting strings in lists.
+	* classix/bagofwordscreator.py: Isolated code splitting strings in 
+	  lists.
 	* classix/searchbackend.py: Switched to use bagofwordscreator.py.
 
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
@@ -54,8 +62,8 @@
 	* classix/main.py:
 	* classix/searchbackend.py:
 	Split main.py in a handful of files.
-	Created a superclass for the user interface, and removed the superclass for
-	the search backend.
+	Created a superclass for the user interface, and removed the superclass 
+	for the search backend.
 
 2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
