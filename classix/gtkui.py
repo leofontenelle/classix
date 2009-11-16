@@ -139,19 +139,16 @@ class MainWindow (ClassixUI):
                     {"code": node.code, "title": node.title})
                 f.write(string)
         except IOError, (errno, strerror):
-            dialog = gtk.Dialog()
-            dialog.set_title(_("Error Saving File"))
-            dialog.set_transient_for(self.window)
-            dialog.set_flags(gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT)
-            dialog.add_butoon(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT)
-            
+            dialog = gtk.Dialog(\
+                 title = _("Error Saving File"),
+                 parent = self.window,
+                 flags = gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                 buttons = (gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
             label = gtk.Label(_("It was not possible to save the search "
                 "results to the text file. The reason was this input/output "
                 "error: %(error_number)d - %(error_description)s") %
-                    {"error_number":errno, "error_description": strerror}
-                 )
+                    {"error_number":errno, "error_description": strerror})
             dialog.vbox.pack_start(label)
-            
             dialog.run()
             dialog.destroy()
         finally:
@@ -177,12 +174,12 @@ class MainWindow (ClassixUI):
         if search_thread:
             self.search_liststore.clear()
             search_thread.start()
-        
-        self.progressbar.show()
-        
-        # This button should only be sensitive after a search is made
-        save_as_button = self.builder.get_object("save_as_button")
-        save_as_button.set_sensitive(True)
+            
+            self.progressbar.show()
+            
+            # This button should only be sensitive after a search is made
+            save_as_button = self.builder.get_object("save_as_button")
+            save_as_button.set_sensitive(True)
     
     
     def on_window_state_change(self, widget, event, *args):
