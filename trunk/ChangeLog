@@ -1,3 +1,8 @@
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/hildonui.py: Integrated the "Save As" feature with the Hildon
+	  toolkit.
+
 2009-11-16  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* classix/gtkui.py:
