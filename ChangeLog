@@ -1,5 +1,10 @@
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* data/classix.ui: Set a proper label to the Save As button.
+	* po/pt_BR.po: Updated Brazilian Portuguese translation.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* po/pt_BR.po: Updated Brazilian Portuguese translation.
 
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
