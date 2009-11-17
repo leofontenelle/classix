@@ -19,6 +19,7 @@
 
 
 import gtk
+import hildon
 
 from classix.gtkui import MainWindow
 
@@ -35,3 +36,17 @@ class HildonMainWindow(MainWindow):
         vbox = self.builder.get_object("vbox1")
         vbox.set_child_packing(child=toolbar, expand=False, fill=True, 
             padding=0, pack_type = gtk.PACK_END)
+        
+        # For some reason it's not working automagically in Maemo.
+        save_as_button = self.builder.get_object("save_as_button")
+        save_as_button.connect("clicked", self.on_save_as_button_clicked)
+    
+    
+    def get_save_as_dialog(self, suggested_name=None):
+        
+        dialog = hildon.FileChooserDialog(parent = self.window,
+            action = gtk.FILE_CHOOSER_ACTION_SAVE)
+        if suggested_name:
+            dialog.set_current_name(suggested_name)
+        
+        return dialog
