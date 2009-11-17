@@ -4,7 +4,7 @@
 import os, gtk
 import gettext, locale
 
-from classix import config, commandlineui, hildonui, gtkui
+from classix import config, commandlineui, gtkui
 
 gtk.gdk.threads_init()
 
@@ -18,13 +18,14 @@ ui_file_name = os.path.join(config.pkgdatadir, "classix.ui")
 
 try:
     import hildon
+    from classix import hildonui
     hildon_loaded = True
 except ImportError:
     hildon_loaded = False
 
 if len(os.sys.argv) > 1:
     main_window = commandlineui.CommandLineInterface()
-elif hildon_loaded:
+elif hildon_loaded: 
     main_window = hildonui.HildonMainWindow(ui_file_name=ui_file_name)
 else:
     main_window = gtkui.MainWindow(ui_file_name=ui_file_name)
