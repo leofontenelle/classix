@@ -1,3 +1,148 @@
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui: Set a proper label to the Save As button.
+	* po/pt_BR.po: Updated Brazilian Portuguese translation.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/pt_BR.po: Updated Brazilian Portuguese translation.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py: Fixed capitalization in the FileChooserDialog 
+	filters labels.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py: The "Save As" FileChooserDialog filters don't rely
+	on file name extensions (but rather on MIME types), so don't display 
+	them in the filter labels.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* bin/classix.in: Import hildonui only if it hildon is imported as well.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/hildonui.py: Integrated the "Save As" feature with the Hildon
+	  toolkit.
+
+2009-11-16  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py:
+	- Show the progress bar and set the "save as" button as sensitive only 
+	  if a search is actually performed 
+	- Trivial code reorganization and typo fix.
+
+2009-11-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py: Fixed compatibility with Python 2.5 in Maemo and 
+	also a misspelled variable name.
+
+2009-11-09  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Added missing file, data/gtkui.py.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py:
+	* data/classix.ui:
+	- Added a "Save As" feature, saving the results from the last search to 
+	  a text file. Addresses issue #16.
+	- Minor code cleanup in the treeview updating code.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui: Reintroduced explicit visible headers in the tree view.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/baseui.py:
+	* classix/commandlineui.py:
+	* classix/gtkui.py:
+	* classix/searchbackend.py:
+	Now the backend is instantiated at the time of the frontend 
+	instantiating. Combined with checking for the existence of the database 
+	during the backend instantiating, this makes the first search 2,5 to 3 
+	times faster. Besides, the logic of choosing whether to actually perform
+	the search was moved from the frontend to the backend.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/Makefile.am: Added classix/bagofwordscreator.py
+	* classix/bagofwordscreator.py: Isolated code splitting strings in 
+	  lists.
+	* classix/searchbackend.py: Switched to use bagofwordscreator.py.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Fixed localization after the split of the source code.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* bin/classix.in:
+	* classix/Makefile.am:
+	* classix/baseui.py:
+	* classix/commandlineui.py:
+	* classix/common.py:
+	* classix/databasecreator.py:
+	* classix/gtkui.py:
+	* classix/hildonui.py:
+	* classix/main.py:
+	* classix/searchbackend.py:
+	Split main.py in a handful of files.
+	Created a superclass for the user interface, and removed the superclass 
+	for the search backend.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Removed obsolete code.
+	* configure.ac: Fixed location of AC_CONFIG_SRCDIR.
+
+2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Fixed source code path.
+
+2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am:
+	* bin/Makefile.am:
+	* classix.in:
+	* configure.ac:
+	* src/Makefile.am:
+	* src/config.py.in:
+	* src/main.py:
+	Moved classix.in to directory "bin" and renamed directory "src" to
+	"classix".
+
+2009-11-02  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Made the search insensitive to diacritics.
+	* data/classix.db: Updated the index accordingly.
+
+2009-11-02  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Removed old SqliteSearch backend and renamed 
+	NewSqliteSearch to SqliteSearch.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* configure.ac: Post release version bump to 0.3.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui:
+	- Added a label before the search entry;
+	- Changed the search button to OK stock button without label.
+	* src/main.py: Move the toolbar to the bottom in the Hildon UI.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui:
+	* src/main.py:
+	- Removed the unused "Stop" button.
+	- Moved the search entry and button to a toolbar.
+
 2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* debian/changelog: Updated for Classix 0.2.
@@ -28,18 +173,19 @@
 
 2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
-	* src/main.py: Added progress bar to the NewSqliteSearch backend, which now
-	is the default one.
+	* src/main.py: Added progress bar to the NewSqliteSearch backend, which 
+	now is the default one.
 
 2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
-	* src/main.py: Allow search to return more codes than what a single SQLite
-	statement could handle. Fixes issue #13.
+	* src/main.py: Allow search to return more codes than what a single 
+	SQLite statement could handle. Fixes issue #13.
 
 2009-10-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* src/main.py:
-	- Made the search more specific, returning only entries matching every word.
+	- Made the search more specific, returning only entries matching every 
+	  word.
 	- The indexed search backend is now the default one.
 	- Added search timer in the command line interface.
 	- Minor code cleanup.
@@ -203,10 +349,10 @@
 
 2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
-	* classix: Added SQLite search backend. It is already the default,
-	with a great performance improvement: 2.8 times quicker when running
-	on an N800's SD card. There is a regression, though: the progress bar
-	is not displayed.
+	* classix: Added SQLite search backend. It is already the default, with
+	a great performance improvement: 2.8 times quicker when running on an
+	N800's SD card. There is a regression, though: the progress bar is not
+	displayed.
 	* classix.db: Added
 	* classix.gz: Removed. See README for instructions on how to get one.
 	* README: Updated with information on how to create a new database if 
