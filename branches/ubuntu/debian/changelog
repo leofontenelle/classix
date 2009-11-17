@@ -1,3 +1,9 @@
+classix (0.3-ubuntu1) karmic; urgency=low
+
+  * Updated to Classix 0.3.
+
+ -- Leonardo Ferreira Fontenelle <leonardof@gnome.org>  Tue, 17 Nov 2009 20:25:33 -0200
+
 classix (0.2-ubuntu1) karmic; urgency=low
 
   * Updated to Classix 0.2.
