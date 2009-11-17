@@ -1,5 +1,9 @@
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* bin/classix.in: Import hildonui only if it hildon is imported as well.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* classix/hildonui.py: Integrated the "Save As" feature with the Hildon
 	  toolkit.
 
