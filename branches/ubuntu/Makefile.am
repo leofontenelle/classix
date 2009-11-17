@@ -1,15 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 ## AUTOMAKE_OPTIONS = subdir-objects
-SUBDIRS = data po src
-
-
-bin_SCRIPTS = classix
-CLEANFILES = $(bin_SCRIPTS)
-EXTRA_DIST = classix.in
-     
-classix: classix.in Makefile
-	sed -e s![@]PYTHON[@]!@PYTHON@! < $< > $@
-
+SUBDIRS = bin classix data po
 
 DISTCLEANFILES = \
 	intltool-extract \
@@ -17,7 +8,7 @@ DISTCLEANFILES = \
 	intltool-update  \
 	po/.intltool-merge-cache
 	
-EXTRA_DIST += \
+EXTRA_DIST = \
 	intltool-extract.in \
 	intltool-merge.in   \
 	intltool-update.in
