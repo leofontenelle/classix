@@ -1,5 +1,9 @@
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* po/pt_BR.po: Updated Brazilian Portuguese translation.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* classix/gtkui.py: Fixed capitalization in the FileChooserDialog 
 	filters labels.
 

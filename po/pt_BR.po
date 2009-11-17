@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: classix 0.1\n"
+"Project-Id-Version: classix 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-31 09:39-0200\n"
+"POT-Creation-Date: 2009-11-17 08:29-0200\n"
 "PO-Revision-Date: 2009-09-28 21:21-0300\n"
 "Last-Translator: Leonardo Ferreira Fontenelle <leonardof@gnome.org>\n"
 "Language-Team: Brazilian Portuguese\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#. so that glib.idle_add won't repeat this callback forever.
 #: ../data/classix.desktop.in.h:1 ../data/classix.ui.h:1
 msgid "Classix"
 msgstr "Classix"
@@ -26,13 +27,13 @@ msgstr "Pesquise códigos CID-10"
 
 #. Translators: Leave '%prog' untranslated; and keep single or double
 #. quotes around the translation of 'text to be searched'.
-#: ../src/main.py:308
+#: ../classix/commandlineui.py:49
 msgid ""
 "usage: %prog [ OPTIONS ] \"text to be searched\" - Search for ICD-10 codes"
 msgstr ""
 "uso: %prog [ OPÇÕES ] \"texto a ser pesquisado\" ] - Pesquise códigos CID-10"
 
-#: ../src/main.py:310
+#: ../classix/commandlineui.py:51
 msgid ""
 "If you want to open the graphical user interface, just run \"classix\". If "
 "you want the results to be printed to the standard output (e.g. the "
@@ -43,24 +44,58 @@ msgstr ""
 "padrão (p.ex. o terminal), especifique o texto a ser pesquisado como um "
 "argumento entre aspas."
 
-#: ../src/main.py:317
+#: ../classix/commandlineui.py:58
 msgid "shows how long it took to search the text"
 msgstr "mostra quanto tempo a pesquisa demorou"
 
-#: ../src/main.py:355
+#: ../classix/commandlineui.py:97
 #, python-format
 msgid "[%.04f second]"
 msgid_plural "[%.04f seconds]"
 msgstr[0] "[%.04f segundo]"
 msgstr[1] "[%.04f segundos]"
 
+#: ../classix/gtkui.py:114
+msgid "All Text Files"
+msgstr "Todos os arquivos de texto"
+
+#: ../classix/gtkui.py:119
+msgid "All Files"
+msgstr "Todos os arquivos"
+
+#: ../classix/gtkui.py:142
+msgid "Error Saving File"
+msgstr "Erro ao salvar arquivo"
+
+#: ../classix/gtkui.py:146
+#, python-format
+msgid ""
+"It was not possible to save the search results to the text file. The reason "
+"was this input/output error: %(error_number)d - %(error_description)s"
+msgstr ""
+"Não foi possível salvar os resultados da pesquisa no arquivo de texto. O "
+"motivo foi esse erro de entrada/saída: %(error_number)d - "
+"%(error_description)s"
+
 #: ../data/classix.ui.h:2
 msgid "Code"
 msgstr "Código"
 
 #: ../data/classix.ui.h:3
+msgid "Save As"
+msgstr "Salvar como"
+
+#: ../data/classix.ui.h:4
+msgid "Search:"
+msgstr "Pesquisar:"
+
+#: ../data/classix.ui.h:5
 msgid "Title"
 msgstr "Título"
+
+#: ../data/classix.ui.h:6
+msgid "toolbutton1"
+msgstr "toolbutton1"
 
 #~ msgid ""
 #~ "Run the application without arguments to open the graphical user "
