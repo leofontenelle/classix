@@ -1,5 +1,11 @@
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
+	* classix/gtkui.py: The "Save As" FileChooserDialog filters don't rely
+	on file name extensions (but rather on MIME types), so don't display 
+	them in the filter labels.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
 	* bin/classix.in: Import hildonui only if it hildon is imported as well.
 
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
