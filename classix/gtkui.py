@@ -111,12 +111,12 @@ class MainWindow (ClassixUI):
         chooser = self.get_save_as_dialog(suggested_name=suggested_name)
         
         txt_filter = gtk.FileFilter()
-        txt_filter.set_name(_("All Text files"))
+        txt_filter.set_name(_("All Text Files"))
         txt_filter.add_mime_type("text/plain")
         chooser.add_filter(txt_filter)
         
         all_filter = gtk.FileFilter()
-        all_filter.set_name(_("All files"))
+        all_filter.set_name(_("All Files"))
         all_filter.add_pattern("*")
         chooser.add_filter(all_filter)
 
