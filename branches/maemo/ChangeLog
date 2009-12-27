@@ -1,3 +1,16 @@
+2009-12-27  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* NEWS: Added missing news for Classix 0.3 and 0.3.1.
+
+2009-12-27  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* configure.ac: Bumped version to 0.3.1.
+
+2009-12-27  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/hildonui.py: Fixed a signal connection which prevented the
+	application to launch properly on a Maemo environment.
+
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* debian/changelog: Updated to Classix 0.3.
