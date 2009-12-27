@@ -1,0 +1,352 @@
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui: Set a proper label to the Save As button.
+	* po/pt_BR.po: Updated Brazilian Portuguese translation.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/pt_BR.po: Updated Brazilian Portuguese translation.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py: Fixed capitalization in the FileChooserDialog 
+	filters labels.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py: The "Save As" FileChooserDialog filters don't rely
+	on file name extensions (but rather on MIME types), so don't display 
+	them in the filter labels.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* bin/classix.in: Import hildonui only if it hildon is imported as well.
+
+2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/hildonui.py: Integrated the "Save As" feature with the Hildon
+	  toolkit.
+
+2009-11-16  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py:
+	- Show the progress bar and set the "save as" button as sensitive only 
+	  if a search is actually performed 
+	- Trivial code reorganization and typo fix.
+
+2009-11-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py: Fixed compatibility with Python 2.5 in Maemo and 
+	also a misspelled variable name.
+
+2009-11-09  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Added missing file, data/gtkui.py.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/gtkui.py:
+	* data/classix.ui:
+	- Added a "Save As" feature, saving the results from the last search to 
+	  a text file. Addresses issue #16.
+	- Minor code cleanup in the treeview updating code.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui: Reintroduced explicit visible headers in the tree view.
+
+2009-11-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/baseui.py:
+	* classix/commandlineui.py:
+	* classix/gtkui.py:
+	* classix/searchbackend.py:
+	Now the backend is instantiated at the time of the frontend 
+	instantiating. Combined with checking for the existence of the database 
+	during the backend instantiating, this makes the first search 2,5 to 3 
+	times faster. Besides, the logic of choosing whether to actually perform
+	the search was moved from the frontend to the backend.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/Makefile.am: Added classix/bagofwordscreator.py
+	* classix/bagofwordscreator.py: Isolated code splitting strings in 
+	  lists.
+	* classix/searchbackend.py: Switched to use bagofwordscreator.py.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Fixed localization after the split of the source code.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* bin/classix.in:
+	* classix/Makefile.am:
+	* classix/baseui.py:
+	* classix/commandlineui.py:
+	* classix/common.py:
+	* classix/databasecreator.py:
+	* classix/gtkui.py:
+	* classix/hildonui.py:
+	* classix/main.py:
+	* classix/searchbackend.py:
+	Split main.py in a handful of files.
+	Created a superclass for the user interface, and removed the superclass 
+	for the search backend.
+
+2009-11-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Removed obsolete code.
+	* configure.ac: Fixed location of AC_CONFIG_SRCDIR.
+
+2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Fixed source code path.
+
+2009-11-06  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am:
+	* bin/Makefile.am:
+	* classix.in:
+	* configure.ac:
+	* src/Makefile.am:
+	* src/config.py.in:
+	* src/main.py:
+	Moved classix.in to directory "bin" and renamed directory "src" to
+	"classix".
+
+2009-11-02  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Made the search insensitive to diacritics.
+	* data/classix.db: Updated the index accordingly.
+
+2009-11-02  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Removed old SqliteSearch backend and renamed 
+	NewSqliteSearch to SqliteSearch.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* configure.ac: Post release version bump to 0.3.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui:
+	- Added a label before the search entry;
+	- Changed the search button to OK stock button without label.
+	* src/main.py: Move the toolbar to the bottom in the Hildon UI.
+
+2009-11-01  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui:
+	* src/main.py:
+	- Removed the unused "Stop" button.
+	- Moved the search entry and button to a toolbar.
+
+2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* NEWS: Added information for Classix 0.2.
+
+2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/pt_BR.po: Updated the Brazilian Portuguese translation.
+
+2009-10-31  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Added an option to show the duration of the search.
+
+2009-10-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* po/POTFILES.in: Added src/main.py.
+	* po/POTFILES.skip: Removed because it because empty
+	* po/pt_BR.po: Updated the Brazilian Portuguese translation.
+	* src/main.py: Replaced N_ with gettext.ngettext itself so that 
+	intltool-update will understand it.
+
+2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Added progress bar to the NewSqliteSearch backend, which 
+	now is the default one.
+
+2009-10-26  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Allow search to return more codes than what a single 
+	SQLite statement could handle. Fixes issue #13.
+
+2009-10-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py:
+	- Made the search more specific, returning only entries matching every 
+	  word.
+	- The indexed search backend is now the default one.
+	- Added search timer in the command line interface.
+	- Minor code cleanup.
+
+2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Added a new backend with indexed search.
+	* data/classix.db: Added an index to the database.
+
+2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: (Hopefully) fixed threading in the GUI.
+
+2009-10-13  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix.in:
+	* src/main.py:
+	Added command line interface.
+
+2009-10-08  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py:
+	* data/classix.ui:
+	* classix.in:
+	Added full screen mode (F6 in on Maemo, F11 otherwise)
+
+2009-10-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* configure.ac: Post release version bump to 0.2.
+
+2009-10-07  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* NEWS: Updated with information for release 0.1.
+
+2009-10-04  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* README: Improved information on dependencies and building.
+
+2009-10-03  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am:
+	* configure.ac:
+	* data/Makefile.am:
+	* src/Makefile.am:
+	- Package name is now "Classix", while tarname remains "classix".
+	- Added built-in support for peculiar .desktop file location
+	  in Maemo systems.
+	- Split makefiles among directories. I hope this time I did fix
+	  "make distcheck".
+
+2009-09-29  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* README: Added installation information.
+	* configure.ac: Fixed "make distcheck".
+
+2009-09-28  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Added support for localization.
+	* classix.in: Added support for localization.
+	* configure.ac: Added support for localization.
+	* data/classix.desktop: Moved to data/classix.desktop.in
+	* data/classix.desktop.in: Added support for localization.
+	* data/classix.ui: Added support for localization.
+	* po/LINGUAS: Added "pt_BR".
+	* po/POTFILES.in: Added data/classix.desktop.in and data/classix.ui.
+	* po/POTFILES.skip: Added src/main.py.
+	* po/pt_BR.po: Added Brazilian Portuguese translation.
+	* src/main.py: Added whitespace.
+
+2009-09-28  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui: Explicitly show headers in the search GtkTreeView.
+	This is needed for the Maemo version of GTK+ 2.10. Closes issue #5.
+
+2009-09-23  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Removed data/classix.gz.
+	* README: Removed information about data/classix.gz.
+	* data/classix.gz: Removed because the SQLite 3 back end has feature
+	parity with the deprecated gziped text file back end.
+	* src/main.py: Removed obsolete code.
+
+2009-09-22  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* data/classix.ui:
+	- Set default window title to 480x320;
+	- Allow GtkTreeView to shrink when the matches for current search are
+	  less wide than those in the previous search.
+	- Don't show text in the progress bar or the "Stop" button.
+	* src/main.py: Fix progress in progress bar for searches with the 
+	SQLite3 back end (it only showed 0.0 or 1.0).
+
+2009-09-22  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py:
+	- Handle exception when checking for the string in the previous search 
+	  but there's no previous search.
+	- Display progress bar for searches using the SQLite 3 back end.
+
+2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Don't search twice for the same string.
+
+2009-09-21  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* src/main.py: Don't stop a search, nor start a new one, when the search
+	text entry is empty.
+
+2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am: Avoid removing data/classix.desktop on "make clean",
+	since it is currently not a generated file.
+
+2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* Makefile.am, data/classix.desktop: Added desktop menu entry.
+
+2009-09-19  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* AUTHORS, NEWS: Added to make autogen happy.
+	* Makefile.am: Added support for automake, non-recursive.
+	* autogen.sh: Added as part of support to the GNU Build System.
+	* classix.in: Fixed path to data files. Simplified header.
+	* classix/: Moved to src/, so that classix.in can be used to create
+	classix.
+	* configure.ac: Added initial support for autoconf.
+	* src/main.py: Fixed path to data files.
+
+2009-09-18  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix.in: Added.
+	* classix.py: Moved to classix/main.py
+	* classix.{ui,db,gz}: Moved to data/
+	* classix/config.py.in: Added.
+	* classix/main.py: Small adjustments to work as a module.
+
+2009-09-18  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+	* classix: moved to classix.py.
+
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+	* classix: Added SQLite search backend. It is already the default, with
+	a great performance improvement: 2.8 times quicker when running on an
+	N800's SD card. There is a regression, though: the progress bar is not
+	displayed.
+	* classix.db: Added
+	* classix.gz: Removed. See README for instructions on how to get one.
+	* README: Updated with information on how to create a new database if 
+	necessary. Added information on why the name "Classix".
+
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+	* classix: Removed debugging code.
+
+2009-09-11  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+	* classix: Isolated the code that parses lines from the cid10n4a.txt
+	file, for future reuse in an SQLite importer.
+
+2009-08-29  Luiz Armesto <luiz.armesto@gmail.com>
+
+	* classix{,.ui}: Added progressbar and stop button.
+
+2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+	* classix: Fixed case insensitive search (thanks to Luiz Fernando
+	Armesto). Closes issue #1.
+
+2009-08-29  Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+	* classix{,.gz,.ui}, COPYING, README: Initial commit.
