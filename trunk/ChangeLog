@@ -1,3 +1,8 @@
+2009-12-27  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
+
+	* classix/hildonui.py: Fixed a signal connection which prevented the
+	application to launch properly on a Maemo environment.
+
 2009-11-17  Leonardo Ferreira Fontenelle  <leonardof@gnome.org>
 
 	* data/classix.ui: Set a proper label to the Save As button.
