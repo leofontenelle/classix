@@ -1,7 +1,7 @@
 # -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT(Classix, 0.3, http://code.google.com/p/classix/issues, classix,
+AC_INIT(Classix, 0.3.1, http://code.google.com/p/classix/issues, classix,
 	http://code.google.com/p/classix/)
 AC_COPYRIGHT([Copyright (C) 2009 the Classix authors.
 This file is distributed under the same license as the AC_PACKAGE_NAME package.])
