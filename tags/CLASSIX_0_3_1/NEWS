@@ -1,0 +1,41 @@
+=============
+Version 0.3.1
+=============
+
+* Fixed a small mistake which impeded the application to be run under Maemo.
+
+
+===========
+Version 0.3
+===========
+
+* Improved the intuitiveness of the toolbar (which by the way is now technically
+  actually a toolbar).
+* Moved the toolbar be to the bottom of the window in the Maemo environment.
+* Made Classix able to save the search results to a text file.
+* Improved the search algorithm to be case insensitive; this means a smaller 
+  database.
+* Improved the speed for the first search in 2.5 to 3.0 times.
+* Made the command line interface work in Maemo.
+
+
+===========
+Version 0.2
+===========
+
+* Improved the search speed 2 to 50 times by indexing the database. This is 
+  specially true for computers with less RAM.
+* Added full screen mode: press F11 on regular computers, or FullScreen (F6) in 
+  internet tablets and other computers using the Hildon toolkit.
+* Added command line interface (not working on Maemo, only regular computers).
+
+
+===========
+Version 0.1
+===========
+
+* This is the first public release of Classix!
+* SQLite backend, 2.8 times faster than the initial text-based backend.
+* Search is case insensitive.
+* Internationalization support, including a Brazilian Portuguese translation.
+* Basic KDE/GNOME/XFCE/etc integration (menu entry).
