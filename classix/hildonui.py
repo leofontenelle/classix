@@ -39,7 +39,7 @@ class HildonMainWindow(MainWindow):
         
         # For some reason it's not working automagically in Maemo.
         save_as_button = self.builder.get_object("save_as_button")
-        save_as_button.connect("clicked", self.on_save_as_button_clicked)
+        save_as_button.connect("clicked", self.on_save_as_button_activate)
     
     
     def get_save_as_dialog(self, suggested_name=None):
