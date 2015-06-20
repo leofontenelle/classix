@@ -1,48 +1,40 @@
 == About Classix ==
 
-Classix is an ICD-10 code lookup application. Currently it searches for 
-arbitrary text in code (eg "E11"), title (eg "Diabetes mellitus não-insulino-
-dependente"), and inclusion notes (eg "Nota: Usar código adicional  de causa 
-externa (Capítulo XX), se necessário, para identificar a droga, se induzido por 
-droga."). It doesn't search in exclusion notes, on purpose. Currently it only 
-supports the Brazilian Portuguese version of ICD-10.
+Classix is an ICD-10 code lookup application. It searches for the 
+given words in the condition code ("E11"), name or description. It 
+uses only the Brazilian Portuguese version of ICD-10.
 
-The name comes from "classification" (the "C" in ICD-10) and from "X", the roman
-numeral for 10.
+The name comes from "classification" (the "C" in ICD-10) and from "X",
+the roman numeral for 10.
 
 
 == Dependencies ==
 
-To run Classix you'll need python 2.5 or newer, with libsqlite3-0 (which is 
-almost always a dependency of python2.5 or newer); python-gtk2 2.10 or newer; 
-and python-gobject 2.12 or newer.
+Compile time: gee >= 0.6
+              glib >= 2.24
+              gtk+ >= 3.0
+              vala >= 0.14
 
-To build from the source code package, you'll need also intltool 0.40 or newer; 
-and m4, autotools-dev, autoconf and automake. Installing intltool may 
-bring the latter packages as dependencies.
-
-To build from the Subversion repository, you'll need all of the above, plus 
-gnome-common and libglib2.0-dev.
-
-The package names vary a little from one GNU/Linux distribution to another.
+Run time: gee, gtk+ and glib
 
 == How to build it ==
 
-Ideally, you should get a binary package for you distribution. If that's not 
-possible, unpack the source code package, change to the new directory and run 
-these commands:
+Ideally, you should get a binary package for you distribution. If 
+that's not possible, unpack the source code package, change to the new
+directory and run these commands:
 
 ./configure --prefix=/usr && make && sudo make install
 
 You can also run "sudo make uninstall" from the same directory.
 
-If you check out the source code from the Subversion repository, you'll need to 
-replace the first command with "./autogen.sh --prefix=/usr"
+If you check out the source code from the Subversion repository, you'll
+need to replace the first command with "./autogen.sh --prefix=/usr", and
+will have another compile time dependency: gnome-common.
 
 
 == Copyright ==
 
-Classix is copyright (C) 2009 Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+Classix is copyright (C) 2009, 2012 Leonardo Ferreira Fontenelle <leonardof@gnome.org>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -57,12 +49,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-The database is copyright by World Health Organization and Centro Brasileiro de 
-Classificação de Doenças. It can be freely used and redistributed provided that 
-authorship is recognized and there is no charge. This means you can sell 
-Classix but not with the database.
+The database is copyright by World Health Organization and Centro
+Brasileiro de Classificação de Doenças. It can be freely used and
+redistributed provided that authorship is recognized and there is no
+charge. This means you can sell Classix but not with the database.
 
-The database can created by importing cid10n4a.txt with a tool in the source
-code. The cid10n4a.txt file can be directly downloaded from:
-
-http://gamba.epm.br/pub/pesqcid/cid10n4a.txt
+You can download the data files freely from:
+http://gamba.epm.br/pub/pesqcid/

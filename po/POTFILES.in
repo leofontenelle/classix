@@ -1,5 +1,0 @@
-data/classix.desktop.in
-classix/commandlineui.py
-classix/gtkui.py
-[type: gettext/glade]data/classix.ui
-

@@ -1,0 +1,39 @@
+========
+Glossary
+========
+
+- Code: in example, A06.0.
+- Title: in example, "Disenteria amebiana aguda" (acute amebian
+         disentery)
+- Inclusion notes: synonyms, definition, variations of the conditions.
+- Exclusion notes: similar conditions that have different codes.
+
+=========================
+How to use the data files
+=========================
+
+1. CID10N4A.DIC
+
+Each line contains a word that can be present on the code, on the 
+title, or on the inclusion notes, but not on the exclusion notes; and a
+number that you can use to do a file seek at the INV file.
+
+2. CID10N4A.INV
+
+Use the number from the DIC file, and seek to that position. Read an
+int32 (signed, little endian) and you'll know how many 32-bit integers
+you'll have to read. Each integer will be used to do a file seek in the
+DAT file.
+
+3. CID10N4A.DAT
+
+Using the integers from INV you can seek to the beginning of the
+corresponding lines in the DAT files. The line format is described by
+the dat_regex variable in classix.vala, with the following pattern:
+
+"""^(?P<code>[A-Z][\d]{2}(\.[\d-])?[\x{2020}*]?)  """  +
+"""(?P<title>[^|]*)\|  """                             +
+"""(?P<inclusion_notes>(\| [^|\\]*)*)?"""              +
+"""(\\ (?P<exclusion_notes>[^|]*(\| [^|]*)*))?"""
+
+Where \x{2020} stands for the dagger symbol.

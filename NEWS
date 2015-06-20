@@ -1,3 +1,21 @@
+===========
+Version 0.4
+===========
+
+* Removed support for Hildon/Maemo.
+* Removed command-line user interface.
+* Removed the save results to text file feature.
+* Removed fullscreen mode.
+* Brazilian Portuguese-only graphical user interface.
+* Pressing Control+L or the mnemonic key moves focus to the search field.
+* A bottom pane displays inclusion and exclusion notes about the 
+  selected condition, allowing the user to select the codes more 
+  appropriately.
+* Text-based backend, with the speed of the old SQLite backend and the 
+  same results, but with smaller package size and less dependencies.
+* Rewrote in Vala.
+* Ported to GTK+ 3.
+
 =============
 Version 0.3.1
 =============

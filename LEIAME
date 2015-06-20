@@ -1,0 +1,50 @@
+== Sobre o Classix ==
+
+O Classix é um aplicativo de consulta à CID-10. Ele pesquisa pelos 
+termos no código (por exemplo, "E11"), no nome ("Diabetes") ou na 
+descrição de cada condição listada. O Classix só usa a versão em 
+português brasileiro da CID-10.
+
+O nome vem de "classificação" (o "c" de CID-10) e "X", que é 10 em 
+algarismos romanos.
+
+== Dependências ==
+
+Compilação: gee >= 0.6
+            glib >= 2.24
+            gtk+ >= 3.0
+            vala >= 0.14
+
+Instalação: gee, gtk+ e glib
+
+== Como compilar ==
+
+Idealmente, você deveria conseguir o aplicativo através de sua 
+distribuição. Se isso não for possível, você pode usar os tradicionais:
+
+./configure --prefix=/usr && make && sudo make install
+
+Você também pode executar "sudo make uninstall" no mesmo diretório para
+desinstalar.
+
+Se você baixar o código do repositório Subversion, vai ter que trocar 
+o primeiro comando por "./autogen.sh --prefix=/usr", e terá mais uma 
+dependência para compilação: gnome-common.
+
+
+== Copyright ==
+
+Direitos autorais: (C) 2009, 2012 Leonardo Ferreira Fontenelle <leonardof@gnome.org>
+
+Você pode usá-lo, redistribuí-lo e/ou modificá-lo sob os termos da 
+Licença Pública Geral GNU 3 ou posterior, com publicada pela Free 
+Software Foundation.
+
+Os direitos autorais do banco de dados pertence à Organização Mundial 
+da Saúde e ao Centro Brasileiro de Classificação de Doenças. O banco 
+de dados pode ser usado e redistribuído gratuitamente, desde que 
+gratuitamente e reconhecendo a autoria. Isso significa que você pode 
+vender o Classix, mas não o banco de dados. 
+
+Você pode baixar os arquivos gratuitamente de:
+http://gamba.epm.br/pub/pesqcid/
